@@ -1,38 +1,28 @@
-import 'package:business_directory/controllers/count_controller.dart';
+import 'package:business_directory/widgets/app_drawer.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class HomePage extends StatelessWidget {
-  final controller = Get.put(CountController());
   HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: AppDrawer(),
       appBar: AppBar(
-        title: const Text("Home page"),
+        leading: Builder(
+          builder: (context) {
+            return IconButton(
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+              icon: Icon(Icons.menu),
+            );
+          },
+        ),
+        title: const Text("Business Directory"),
         centerTitle: true,
       ),
-      body: Center(
-        child: Obx(
-          () => Text.rich(
-            TextSpan(
-              text: "You have pressed the button ",
-              children: [
-                TextSpan(
-                  text: "${controller.count} times",
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          controller.increment();
-        },
-        child: Icon(Icons.add),
-      ),
+      body: Center(child: Text("Home")),
     );
   }
 }
