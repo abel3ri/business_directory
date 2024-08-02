@@ -20,9 +20,14 @@ class HomePage extends StatelessWidget {
           },
         ),
         title: const Text("Business Directory"),
+        titleTextStyle: Theme.of(context).textTheme.bodyLarge,
         centerTitle: true,
+        surfaceTintColor: Colors.transparent,
+        backgroundColor: Colors.transparent,
       ),
-      body: Center(child: Text("Home")),
+      body: Center(
+        child: Text("Home"),
+      ),
     );
   }
 }

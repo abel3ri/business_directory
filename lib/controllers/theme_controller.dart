@@ -1,17 +1,19 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class ThemeController extends GetxController {
-  RxString selectedTheme = "system".obs;
+  RxBool isDarkMode = false.obs;
 
-  void updateTheme(String theme) {
-    selectedTheme.value = theme;
-    if (theme == 'system') {
-      Get.changeThemeMode(ThemeMode.system);
-    } else if (theme == 'light') {
-      Get.changeThemeMode(ThemeMode.light);
+  @override
+  void onInit() {
+    final darkMode = GetStorage().read("isDarkMode");
+    print(darkMode);
+
+    if (darkMode == false) {
+      isDarkMode.value = darkMode;
     } else {
-      Get.changeThemeMode(ThemeMode.dark);
+      isDarkMode.value = darkMode;
     }
+    super.onInit();
   }
 }

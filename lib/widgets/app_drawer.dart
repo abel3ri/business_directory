@@ -1,6 +1,7 @@
 import 'package:business_directory/controllers/theme_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class AppDrawer extends StatelessWidget {
   AppDrawer({
@@ -8,6 +9,7 @@ class AppDrawer extends StatelessWidget {
   });
 
   final ThemeController themeController = Get.find<ThemeController>();
+  final storage = GetStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -17,39 +19,29 @@ class AppDrawer extends StatelessWidget {
       child: SafeArea(
         child: Column(
           children: [
-            Text("Business Directory"),
+            Text(
+              "Settings",
+              style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+            ),
             ListView(
               shrinkWrap: true,
               children: [
                 ListTile(
-                  title: Text("Theme"),
-                  trailing: Theme(
-                    data: Theme.of(context).copyWith(
-                      splashColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                    ),
-                    child: Obx(
-                      () => DropdownButton(
-                        value: themeController.selectedTheme.value,
-                        underline: SizedBox.shrink(),
-                        alignment: Alignment.centerRight,
-                        elevation: 0,
-                        items: [
-                          DropdownMenuItem(
-                            child: Text("Light"),
-                            value: "light",
-                          ),
-                          DropdownMenuItem(
-                            child: Text("Dark"),
-                            value: "dark",
-                          ),
-                          DropdownMenuItem(
-                            child: Text("System"),
-                            value: "system",
-                          ),
-                        ],
-                        onChanged: (value) {
-                          themeController.updateTheme(value!);
+                  title: Text("Dark mode"),
+                  trailing: Obx(
+                    () => Transform.scale(
+                      scale: 0.8,
+                      child: Switch(
+                        value: themeController.isDarkMode.value,
+                        onChanged: (value) async {
+                          themeController.isDarkMode.value = value;
+                          Get.changeThemeMode(
+                            value ? ThemeMode.dark : ThemeMode.light,
+                          );
+                          await storage.write("isDarkMode", value);
                         },
                       ),
                     ),

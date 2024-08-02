@@ -7,13 +7,18 @@ import 'package:get_storage/get_storage.dart';
 
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
-  Get.put(ThemeController());
   await GetStorage.init();
+  Get.put(ThemeController());
+  final storage = GetStorage();
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
-      themeMode: ThemeMode.system,
+      themeMode: storage.read("isDarkMode") == null
+          ? ThemeMode.system
+          : storage.read("isDarkMode")
+              ? ThemeMode.dark
+              : ThemeMode.light,
       darkTheme: AppTheme.darkTheme,
       defaultTransition: Transition.cupertino,
       initialRoute: "/home",
