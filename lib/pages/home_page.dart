@@ -1,5 +1,7 @@
 import 'package:business_directory/widgets/app_drawer.dart';
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
@@ -15,18 +17,111 @@ class HomePage extends StatelessWidget {
               onPressed: () {
                 Scaffold.of(context).openDrawer();
               },
-              icon: Icon(Icons.menu),
+              icon: Icon(Icons.sort),
             );
           },
         ),
-        title: const Text("Business Directory"),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.language),
+            onPressed: () {},
+          ),
+        ],
         titleTextStyle: Theme.of(context).textTheme.bodyLarge,
-        centerTitle: true,
         surfaceTintColor: Colors.transparent,
         backgroundColor: Colors.transparent,
+        title: Text("Business Directory"),
       ),
-      body: Center(
-        child: Text("Home"),
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 12),
+        child: Center(
+          child: Column(
+            children: [
+              Container(
+                width: Get.width,
+                height: Get.height * 0.25,
+                padding: EdgeInsets.symmetric(
+                  horizontal: 16,
+                ),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primary,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      spreadRadius: 2,
+                      blurRadius: 100,
+                      offset: Offset(0, 20),
+                      color: Colors.black26,
+                    ),
+                  ],
+                ),
+                child: Center(
+                  child: Text.rich(
+                    TextSpan(
+                      text: "Discover ",
+                      style:
+                          Theme.of(context).textTheme.headlineMedium!.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w900,
+                              ),
+                      children: [
+                        TextSpan(
+                          text:
+                              "Local Businesses and Services at Your Fingertips",
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium!
+                              .copyWith(
+                                color: Colors.white,
+                              ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: Get.height * 0.02),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                  decoration: BoxDecoration(
+                    color:
+                        Theme.of(context).scaffoldBackgroundColor.lighten(10),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: "Search businesses",
+                      suffixIcon: IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.search),
+                      ),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                      ),
+                      filled: true,
+                      fillColor: Get.isDarkMode
+                          ? Theme.of(context)
+                              .scaffoldBackgroundColor
+                              .lighten(20)
+                          : Theme.of(context)
+                              .scaffoldBackgroundColor
+                              .darken(20),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
