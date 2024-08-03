@@ -1,5 +1,7 @@
 import 'package:business_directory/controllers/theme_controller.dart';
 import 'package:business_directory/pages/home_page.dart';
+import 'package:business_directory/pages/login_page.dart';
+import 'package:business_directory/pages/signup_page.dart';
 import 'package:business_directory/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,6 +28,14 @@ void main(List<String> args) async {
         GetPage(
           name: "/home",
           page: () => HomePage(),
+        ),
+        GetPage(
+          name: "/login",
+          page: () => LoginPage(),
+        ),
+        GetPage(
+          name: "/signup",
+          page: () => SignupPage(),
         ),
       ],
       // themeMode: ,
