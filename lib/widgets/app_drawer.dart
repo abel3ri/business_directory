@@ -20,7 +20,7 @@ class AppDrawer extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              "Settings",
+              "settings".tr,
               style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).colorScheme.primary,
@@ -30,7 +30,7 @@ class AppDrawer extends StatelessWidget {
               shrinkWrap: true,
               children: [
                 ListTile(
-                  title: Text("Dark mode"),
+                  title: Text("darkMode".tr),
                   trailing: Obx(
                     () => Transform.scale(
                       scale: 0.8,

@@ -41,6 +41,9 @@ class AppTranslations extends Translations {
               "Username must be at least 5 chars long",
           "pleaseEnterValidUsername": "Please enter a valid username",
           "pleaseEnterValidPassword": "Password must be 8 chars long",
+          "settings": "Settings",
+          "theme": "Theme",
+          "darkMode": "Dark Mode",
         },
         "am_ET": {
           "discover": "በአካባቢዎ ",
@@ -79,6 +82,8 @@ class AppTranslations extends Translations {
           "pleaseEnterValidUsernameLen": "መለያ ስም ቢያንስ 5 ፊደላት መሆን አለበት",
           "pleaseEnterValidUsername": "እባክዎ ትክክለኛ መለያ ስም ያስገቡ",
           "pleaseEnterValidPassword": "የይለፍ ቃ ቢያንስ 8 ፊደላት መሆን አለበት",
+          "settings": "ማስተካከያወች",
+          "darkMode": "ጥቁር ጭብጥ",
         },
       };
 }
