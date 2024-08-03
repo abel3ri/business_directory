@@ -9,6 +9,7 @@ class RInputField extends StatelessWidget {
     required this.hintText,
     required this.keyboardType,
     required this.textInputAction,
+    this.suffixIcon,
   });
 
   final TextEditingController controller;
@@ -16,12 +17,14 @@ class RInputField extends StatelessWidget {
   final String hintText;
   final TextInputType keyboardType;
   final TextInputAction textInputAction;
+  final Widget? suffixIcon;
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return Flexible(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             label,
@@ -35,6 +38,7 @@ class RInputField extends StatelessWidget {
             keyboardType: keyboardType,
             textInputAction: textInputAction,
             decoration: InputDecoration(
+              suffixIcon: suffixIcon,
               hintText: hintText,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
