@@ -8,6 +8,12 @@ class TextFieldController extends GetxController {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController rePasswordController = TextEditingController();
   final TextEditingController userNameController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+  final showPassword = false.obs;
+
+  void toggleShowPassword() {
+    showPassword.value = !showPassword.value;
+  }
 
   @override
   void onClose() {

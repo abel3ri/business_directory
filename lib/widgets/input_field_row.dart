@@ -9,6 +9,8 @@ class RInputField extends StatelessWidget {
     required this.hintText,
     required this.keyboardType,
     required this.textInputAction,
+    required this.validator,
+    this.obscureText = false,
     this.suffixIcon,
   });
 
@@ -18,6 +20,8 @@ class RInputField extends StatelessWidget {
   final TextInputType keyboardType;
   final TextInputAction textInputAction;
   final Widget? suffixIcon;
+  final String? Function(String? value) validator;
+  final bool obscureText;
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +41,7 @@ class RInputField extends StatelessWidget {
             controller: controller,
             keyboardType: keyboardType,
             textInputAction: textInputAction,
+            obscureText: obscureText,
             decoration: InputDecoration(
               suffixIcon: suffixIcon,
               hintText: hintText,
@@ -61,6 +66,7 @@ class RInputField extends StatelessWidget {
                 ),
               ),
             ),
+            validator: validator,
           ),
         ],
       ),
