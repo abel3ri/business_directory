@@ -1,5 +1,6 @@
 import 'package:business_directory/widgets/category_item.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CategoryItemsGrid extends StatelessWidget {
   const CategoryItemsGrid({
@@ -19,48 +20,48 @@ class CategoryItemsGrid extends StatelessWidget {
         ),
         children: [
           CategoryItem(
-            name: "Restaurant",
+            name: "restaurant".tr,
             icon: Icons.restaurant,
             color: Colors.red,
             onTap: () {},
           ),
           CategoryItem(
-            name: "Real Estate",
+            name: "realEstate".tr,
             icon: Icons.home,
             color: Colors.amber,
             onTap: () {},
           ),
           CategoryItem(
-            name: "Tech",
+            name: "tech".tr,
             icon: Icons.developer_mode,
             color: Colors.blue,
             onTap: () {},
           ),
           CategoryItem(
-            name: "Shopping",
+            name: "shopping".tr,
             icon: Icons.shopping_bag,
             onTap: () {},
           ),
           CategoryItem(
-            name: "Hospital",
+            name: "hospital".tr,
             icon: Icons.local_hospital,
             color: Colors.green,
             onTap: () {},
           ),
           CategoryItem(
-            name: "Pharmacy",
+            name: "pharmacy".tr,
             icon: Icons.medication_liquid_rounded,
             color: Colors.lightGreen,
             onTap: () {},
           ),
           CategoryItem(
-            name: "Shopping",
+            name: "Shopping".tr,
             icon: Icons.shopping_bag,
             color: Colors.purple,
             onTap: () {},
           ),
           CategoryItem(
-            name: "More",
+            name: "more".tr,
             icon: Icons.more_vert_outlined,
             onTap: () {},
           ),

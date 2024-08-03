@@ -25,15 +25,34 @@ class HomePage extends StatelessWidget {
           },
         ),
         actions: [
-          IconButton(
+          PopupMenuButton(
+            surfaceTintColor: Colors.transparent,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+            position: PopupMenuPosition.under,
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                value: "en_US",
+                child: Text("English"),
+              ),
+              PopupMenuItem(
+                value: "am_ET",
+                child: Text("አማርኛ"),
+              ),
+            ],
             icon: Icon(Icons.language),
-            onPressed: () {},
+            onSelected: (value) {
+              List<String> splittedLocale = value.split("_");
+              Locale locale = Locale(splittedLocale[0], splittedLocale[1]);
+              Get.updateLocale(locale);
+            },
           ),
         ],
         titleTextStyle: Theme.of(context).textTheme.bodyLarge,
         surfaceTintColor: Colors.transparent,
         backgroundColor: Colors.transparent,
-        title: Text("Business Directory"),
+        title: Text("businessDirectory".tr),
         centerTitle: true,
       ),
       body: Padding(
@@ -70,7 +89,7 @@ class HomePage extends StatelessWidget {
                     child: Center(
                       child: Text.rich(
                         TextSpan(
-                          text: "Discover ",
+                          text: "discover".tr,
                           style: Theme.of(context)
                               .textTheme
                               .headlineMedium!
@@ -80,8 +99,7 @@ class HomePage extends StatelessWidget {
                               ),
                           children: [
                             TextSpan(
-                              text:
-                                  "Local Businesses and Services at Your Fingertips",
+                              text: "localBusiness".tr,
                               style: Theme.of(context)
                                   .textTheme
                                   .headlineMedium!
@@ -100,9 +118,9 @@ class HomePage extends StatelessWidget {
               SizedBox(height: Get.height * 0.08),
               CategoryItemsGrid(),
               Divider(),
-              Expanded(child: SizedBox()),
+              Spacer(),
               Text(
-                "Sign up or Login to explore more businesses",
+                "signupToExplore".tr,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               SizedBox(height: Get.height * 0.02),
@@ -110,14 +128,14 @@ class HomePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   RButton(
-                    label: "Sign up",
+                    label: "signup".tr,
                     onPressed: () {
                       Get.toNamed("signup");
                     },
                   ),
                   SizedBox(width: Get.width * 0.02),
                   RButton(
-                    label: "Login",
+                    label: "login".tr,
                     onPressed: () {
                       Get.toNamed("login");
                     },

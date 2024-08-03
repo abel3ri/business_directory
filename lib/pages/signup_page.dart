@@ -32,7 +32,7 @@ class SignupPage extends StatelessWidget {
               children: [
                 Center(
                   child: Text(
-                    "Ready to explore businesses?",
+                    "readyToExplore".tr,
                     style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                           color: Theme.of(context).colorScheme.primary,
                           fontWeight: FontWeight.bold,
@@ -44,8 +44,8 @@ class SignupPage extends StatelessWidget {
                   children: [
                     RInputField(
                       controller: textFieldController.firstNameController,
-                      label: "First name",
-                      hintText: "Enter your first name",
+                      label: "firstName".tr,
+                      hintText: "enterFirstName".tr,
                       keyboardType: TextInputType.name,
                       textInputAction: TextInputAction.next,
                       validator: FormValidator.nameValidator,
@@ -53,8 +53,8 @@ class SignupPage extends StatelessWidget {
                     SizedBox(width: Get.width * 0.04),
                     RInputField(
                       controller: textFieldController.lastNameController,
-                      label: "Last name",
-                      hintText: "Enter your last name",
+                      label: "lastName".tr,
+                      hintText: "enterLastName".tr,
                       keyboardType: TextInputType.name,
                       textInputAction: TextInputAction.next,
                       validator: FormValidator.nameValidator,
@@ -64,8 +64,8 @@ class SignupPage extends StatelessWidget {
                 SizedBox(height: Get.height * 0.02),
                 RInputField(
                   controller: textFieldController.userNameController,
-                  label: "Username",
-                  hintText: "Enter your username",
+                  label: "userName".tr,
+                  hintText: "enterUsername".tr,
                   keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
                   validator: FormValidator.usernameValidator,
@@ -73,8 +73,8 @@ class SignupPage extends StatelessWidget {
                 SizedBox(height: Get.height * 0.02),
                 RInputField(
                   controller: textFieldController.emailController,
-                  label: "E-mail",
-                  hintText: "Enter your email",
+                  label: "email".tr,
+                  hintText: "enterEmail".tr,
                   keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
                   validator: FormValidator.emailValidator,
@@ -82,8 +82,8 @@ class SignupPage extends StatelessWidget {
                 SizedBox(height: Get.height * 0.02),
                 RInputField(
                   controller: textFieldController.passwordController,
-                  label: "Password",
-                  hintText: "Enter your password",
+                  label: "password".tr,
+                  hintText: "enterPassword".tr,
                   obscureText: textFieldController.showPassword.value,
                   keyboardType: TextInputType.visiblePassword,
                   textInputAction: TextInputAction.next,
@@ -102,8 +102,8 @@ class SignupPage extends StatelessWidget {
                 SizedBox(height: Get.height * 0.02),
                 RInputField(
                   controller: textFieldController.rePasswordController,
-                  label: "Re-enter Password",
-                  hintText: "Enter your password again",
+                  label: "reEnterPassword".tr,
+                  hintText: "enterRePassword".tr,
                   keyboardType: TextInputType.visiblePassword,
                   obscureText: textFieldController.showPassword.value,
                   textInputAction: TextInputAction.next,
@@ -111,7 +111,7 @@ class SignupPage extends StatelessWidget {
                 ),
                 SizedBox(height: Get.height * 0.02),
                 RButton(
-                  label: "Sign up",
+                  label: "signup".tr,
                   onPressed: () {
                     if (textFieldController.formKey.currentState!.validate()) {
                       print("success");
@@ -122,12 +122,12 @@ class SignupPage extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Already have an account?"),
+                    Text("alreadyHaveAccount".tr),
                     TextButton(
                       onPressed: () {
                         Get.offNamed("login");
                       },
-                      child: Text("Login"),
+                      child: Text("login".tr),
                     ),
                   ],
                 ),

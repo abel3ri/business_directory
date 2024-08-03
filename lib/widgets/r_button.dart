@@ -15,7 +15,7 @@ class RButton extends StatelessWidget {
       onPressed: onPressed,
       child: Text(label),
       style: ButtonStyle(
-        fixedSize: WidgetStatePropertyAll(Size(100, 16)),
+        fixedSize: WidgetStatePropertyAll(Size(112, 16)),
       ),
     );
   }
