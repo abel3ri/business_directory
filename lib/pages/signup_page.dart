@@ -1,5 +1,6 @@
 import 'package:business_directory/controllers/text_field_controller.dart';
 import 'package:business_directory/widgets/input_field_row.dart';
+import 'package:business_directory/widgets/r_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -18,11 +19,13 @@ class SignupPage extends StatelessWidget {
           icon: Icon(Icons.arrow_back_ios_new),
         ),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Form(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Center(
                 child: Text(
@@ -56,10 +59,56 @@ class SignupPage extends StatelessWidget {
               SizedBox(height: Get.height * 0.02),
               RInputField(
                 controller: textFieldController.emailController,
+                label: "Username",
+                hintText: "Enter your username",
+                keyboardType: TextInputType.emailAddress,
+                textInputAction: TextInputAction.next,
+              ),
+              SizedBox(height: Get.height * 0.02),
+              RInputField(
+                controller: textFieldController.emailController,
                 label: "E-mail",
                 hintText: "Enter your email",
                 keyboardType: TextInputType.emailAddress,
                 textInputAction: TextInputAction.next,
+              ),
+              SizedBox(height: Get.height * 0.02),
+              RInputField(
+                controller: textFieldController.emailController,
+                label: "Password",
+                hintText: "Enter your password",
+                keyboardType: TextInputType.visiblePassword,
+                textInputAction: TextInputAction.next,
+                suffixIcon: IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.visibility),
+                ),
+              ),
+              SizedBox(height: Get.height * 0.02),
+              RInputField(
+                controller: textFieldController.emailController,
+                label: "Re-enter Password",
+                hintText: "Enter your password again",
+                keyboardType: TextInputType.visiblePassword,
+                textInputAction: TextInputAction.next,
+              ),
+              SizedBox(height: Get.height * 0.02),
+              RButton(
+                label: "Sign up",
+                onPressed: () {},
+              ),
+              // SizedBox(height: Get.height * 0.02),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Already have an account?"),
+                  TextButton(
+                    onPressed: () {
+                      Get.offNamed("login");
+                    },
+                    child: Text("Login"),
+                  ),
+                ],
               ),
             ],
           ),
