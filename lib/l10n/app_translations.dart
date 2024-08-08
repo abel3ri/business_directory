@@ -46,6 +46,8 @@ class AppTranslations extends Translations {
           "darkMode": "Dark Mode",
           "welcomeBack": "Welcome back!",
           "dontHaveAccount": "Don't have an account?",
+          "popularBusiness": "POPULAR BUSINESSES",
+          "showDirection": "Show direction",
         },
         "am_ET": {
           "discover": "በአካባቢዎ ",
@@ -88,6 +90,8 @@ class AppTranslations extends Translations {
           "darkMode": "ጥቁር ጭብጥ",
           "welcomeBack": "እንክን ደህና መጡ!",
           "dontHaveAccount": "መለያ የሎትም?",
+          "popularBusiness": "ታዋቂ ቢዝነሶች",
+          "showDirection": "አቅጣጫ ይመልከቱ",
         },
       };
 }
