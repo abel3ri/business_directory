@@ -13,13 +13,14 @@ void main(List<String> args) async {
   await GetStorage.init();
   Get.put(ThemeController());
   final storage = GetStorage();
+  final bool? isDarkMode = storage.read("isDarkMode");
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
-      themeMode: storage.read("isDarkMode") == null
+      themeMode: isDarkMode == null
           ? ThemeMode.system
-          : storage.read("isDarkMode")
+          : isDarkMode
               ? ThemeMode.dark
               : ThemeMode.light,
       darkTheme: AppTheme.darkTheme,
