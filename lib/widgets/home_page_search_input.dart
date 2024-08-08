@@ -2,8 +2,19 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+class HomePageInputController extends GetxController {
+  TextEditingController searchInputController = TextEditingController();
+
+  @override
+  void onClose() {
+    super.onClose();
+    searchInputController.dispose();
+  }
+}
+
 class HomePageSearchInput extends StatelessWidget {
-  const HomePageSearchInput({
+  final controller = Get.put(HomePageInputController());
+  HomePageSearchInput({
     super.key,
   });
 
@@ -18,6 +29,7 @@ class HomePageSearchInput extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
         ),
         child: TextField(
+          controller: controller.searchInputController,
           decoration: InputDecoration(
             contentPadding: EdgeInsets.symmetric(
               horizontal: 12,
