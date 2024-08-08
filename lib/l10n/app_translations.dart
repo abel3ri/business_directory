@@ -15,7 +15,7 @@ class AppTranslations extends Translations {
           "pharmacy": "Pharmacy",
           "more": "More",
           "signupToExplore": "Sign up or Login to explore more businesses",
-          "signup": "Sing up",
+          "signup": "Sign up",
           "login": "Login",
           "readyToExplore": "Ready to explore businesses?",
           "firstName": "First name",
@@ -44,6 +44,8 @@ class AppTranslations extends Translations {
           "settings": "Settings",
           "theme": "Theme",
           "darkMode": "Dark Mode",
+          "welcomeBack": "Welcome back!",
+          "dontHaveAccount": "Don't have an account?",
         },
         "am_ET": {
           "discover": "በአካባቢዎ ",
@@ -84,6 +86,8 @@ class AppTranslations extends Translations {
           "pleaseEnterValidPassword": "የይለፍ ቃ ቢያንስ 8 ፊደላት መሆን አለበት",
           "settings": "ማስተካከያወች",
           "darkMode": "ጥቁር ጭብጥ",
+          "welcomeBack": "እንክን ደህና መጡ!",
+          "dontHaveAccount": "መለያ የሎትም?",
         },
       };
 }
