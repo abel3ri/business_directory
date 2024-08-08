@@ -122,6 +122,9 @@ class SignupPage extends StatelessWidget {
                 FormFooter(
                   label: "alreadyHaveAccount".tr,
                   text: 'login'.tr,
+                  onPressed: () {
+                    Get.offNamed("login");
+                  },
                 ),
               ],
             ),
