@@ -1,4 +1,5 @@
 import 'package:business_directory/widgets/app_drawer.dart';
+import 'package:business_directory/widgets/business_container.dart';
 import 'package:business_directory/widgets/category_item_grid.dart';
 import 'package:business_directory/widgets/home_page_search_input.dart';
 import 'package:business_directory/widgets/r_button.dart';
@@ -55,7 +56,7 @@ class HomePage extends StatelessWidget {
         title: Text("businessDirectory".tr),
         centerTitle: true,
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 12),
         child: Center(
           child: Column(
@@ -68,9 +69,7 @@ class HomePage extends StatelessWidget {
                   Container(
                     width: Get.width,
                     height: Get.height * 0.3,
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 16,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 16),
                     decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.primary,
                       borderRadius: BorderRadius.only(
@@ -117,8 +116,46 @@ class HomePage extends StatelessWidget {
               ),
               SizedBox(height: Get.height * 0.08),
               CategoryItemsGrid(),
+              // SizedBox(height: Get.height * 0.02),
               Divider(),
-              Spacer(),
+              Center(
+                child: Text(
+                  "popularBusiness".tr,
+                  style: Theme.of(context).textTheme.titleLarge!.copyWith(),
+                ),
+              ),
+              SizedBox(height: Get.height * 0.02),
+              GridView(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 8,
+                  crossAxisSpacing: 8,
+                  childAspectRatio: 4.5 / 7,
+                ),
+                children: [
+                  BusinessContainer(
+                    imagePath: "assets/eTech_logo.png",
+                    name: "eTech S.C.",
+                    location: "Around 22, Addis Ababa",
+                    rating: 4.9,
+                  ),
+                  BusinessContainer(
+                    imagePath: "assets/eTech_logo.png",
+                    name: "eTech S.C.",
+                    location: "Around 22, Addis Ababa",
+                    rating: 4.9,
+                  ),
+                  BusinessContainer(
+                    imagePath: "assets/eTech_logo.png",
+                    name: "eTech S.C.",
+                    location: "Around 22, Addis Ababa",
+                    rating: 4.9,
+                  ),
+                ],
+              ),
+              SizedBox(height: Get.height * 0.02),
               Text(
                 "signupToExplore".tr,
                 style: Theme.of(context).textTheme.titleMedium,
