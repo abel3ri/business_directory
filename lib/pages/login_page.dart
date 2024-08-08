@@ -1,4 +1,4 @@
-import 'package:business_directory/controllers/text_field_controller.dart';
+import 'package:business_directory/controllers/login_textfield_controller.dart';
 import 'package:business_directory/utils/form_validator.dart';
 import 'package:business_directory/widgets/form_footer.dart';
 import 'package:business_directory/widgets/input_field_row.dart';
@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginPage extends StatelessWidget {
-  final textFieldController = Get.put(TextFieldController());
+  final textFieldController = Get.put(LoginTextfieldController());
 
   LoginPage({super.key});
 
@@ -72,7 +72,7 @@ class LoginPage extends StatelessWidget {
                 ),
                 SizedBox(height: Get.height * 0.02),
                 RButton(
-                  label: "signup".tr,
+                  label: "login".tr,
                   onPressed: () {
                     if (textFieldController.formKey.currentState!.validate()) {
                       print("success");

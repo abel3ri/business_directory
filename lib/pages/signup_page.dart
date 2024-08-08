@@ -1,4 +1,4 @@
-import 'package:business_directory/controllers/text_field_controller.dart';
+import 'package:business_directory/controllers/signup_textfield_controller.dart';
 import 'package:business_directory/utils/form_validator.dart';
 import 'package:business_directory/widgets/form_footer.dart';
 import 'package:business_directory/widgets/input_field_row.dart';
@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SignupPage extends StatelessWidget {
-  final textFieldController = Get.put(TextFieldController());
+  final textFieldController = Get.put(SignupTextfieldController());
   SignupPage({super.key});
 
   @override
