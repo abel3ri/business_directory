@@ -1,5 +1,6 @@
 import 'package:business_directory/controllers/text_field_controller.dart';
 import 'package:business_directory/utils/form_validator.dart';
+import 'package:business_directory/widgets/form_footer.dart';
 import 'package:business_directory/widgets/input_field_row.dart';
 import 'package:business_directory/widgets/r_button.dart';
 import 'package:flutter/material.dart';
@@ -118,18 +119,9 @@ class SignupPage extends StatelessWidget {
                     }
                   },
                 ),
-                // SizedBox(height: Get.height * 0.02),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text("alreadyHaveAccount".tr),
-                    TextButton(
-                      onPressed: () {
-                        Get.offNamed("login");
-                      },
-                      child: Text("login".tr),
-                    ),
-                  ],
+                FormFooter(
+                  label: "alreadyHaveAccount".tr,
+                  text: 'login'.tr,
                 ),
               ],
             ),
