@@ -52,8 +52,8 @@ class HomePageSearchInput extends StatelessWidget {
             ),
             filled: true,
             fillColor: Get.isDarkMode
-                ? Colors.grey.darken(50)
-                : Colors.grey.lighten(20),
+                ? Theme.of(context).scaffoldBackgroundColor.lighten(20)
+                : Theme.of(context).scaffoldBackgroundColor.darken(10),
           ),
           onChanged: (value) {},
         ),
