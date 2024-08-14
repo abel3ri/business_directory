@@ -32,7 +32,7 @@ void main(List<String> args) async {
       initialRoute: "/getStarted",
       getPages: [
         GetPage(
-          name: "getStarted",
+          name: "/getStarted",
           page: () => GetStartedPage(),
         ),
         GetPage(
