@@ -18,70 +18,73 @@ class BusinessContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-      decoration: BoxDecoration(
-        color: Get.isDarkMode
-            ? Theme.of(context).scaffoldBackgroundColor.lighten(5)
-            : Theme.of(context).scaffoldBackgroundColor.darken(5),
+    return Card(
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      color: Get.isDarkMode
+          ? Theme.of(context).scaffoldBackgroundColor.darken(5)
+          : Theme.of(context).scaffoldBackgroundColor.lighten(10),
+      elevation: 4,
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
       ),
-      // color: Colors.grey,
-      child: Column(
-        children: [
-          Image.asset(
-            imagePath,
-            width: 96,
-            height: 96,
-          ),
-          SizedBox(height: Get.height * 0.01),
-          Text(
-            name,
-            style: Theme.of(context)
-                .textTheme
-                .bodyLarge!
-                .copyWith(fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: Get.height * 0.01),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Chip(
-                shape: StadiumBorder(),
-                backgroundColor: Colors.transparent,
-                padding: EdgeInsets.all(0),
-                side: BorderSide.none,
-                label: Text(
-                  "TECH",
+      child: Padding(
+        padding: const EdgeInsets.only(top: 8, left: 12, right: 12),
+        child: Column(
+          children: [
+            Image.asset(
+              imagePath,
+              width: 96,
+              height: 96,
+            ),
+            SizedBox(height: Get.height * 0.01),
+            Text(
+              name,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyLarge!
+                  .copyWith(fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: Get.height * 0.01),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Chip(
+                  shape: StadiumBorder(),
+                  backgroundColor: Colors.transparent,
+                  padding: EdgeInsets.all(0),
+                  side: BorderSide.none,
+                  label: Text(
+                    "TECH",
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                ),
+                Text(
+                  "${rating}⭐",
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
                 ),
-              ),
-              Text(
-                "${rating}⭐",
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-              ),
-            ],
-          ),
-          Text(
-            '🎈 ${location}',
-            style: Theme.of(context).textTheme.bodySmall,
-            textAlign: TextAlign.center,
-          ),
-          // Spacer(),
-          TextButton.icon(
-            label: Text(
-              "showDirection".tr,
-              style: Theme.of(context).textTheme.bodySmall,
+              ],
             ),
-            onPressed: () {},
-            iconAlignment: IconAlignment.end,
-            icon: Icon(Icons.directions),
-          )
-        ],
+            Text(
+              '🎈 ${location}',
+              style: Theme.of(context).textTheme.bodySmall,
+              textAlign: TextAlign.center,
+            ),
+            // Spacer(),
+            TextButton.icon(
+              label: Text(
+                "showDirection".tr,
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+              onPressed: () {},
+              iconAlignment: IconAlignment.end,
+              icon: Icon(Icons.directions),
+            )
+          ],
+        ),
       ),
     );
   }
