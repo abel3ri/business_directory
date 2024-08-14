@@ -19,9 +19,7 @@ class HomePage extends StatelessWidget {
           child: Column(
             children: [
               Stack(
-                alignment: Alignment.bottomCenter.add(
-                  Alignment(0, 0.45),
-                ),
+                alignment: Alignment(0, 1.25),
                 children: [
                   Container(
                     width: Get.width,
@@ -33,14 +31,6 @@ class HomePage extends StatelessWidget {
                         topLeft: Radius.circular(8),
                         topRight: Radius.circular(8),
                       ),
-                      boxShadow: [
-                        BoxShadow(
-                          spreadRadius: 2,
-                          blurRadius: 100,
-                          offset: Offset(0, 20),
-                          color: Colors.black26,
-                        ),
-                      ],
                     ),
                     child: Center(
                       child: Text.rich(
@@ -62,15 +52,18 @@ class HomePage extends StatelessWidget {
                                   .copyWith(
                                     color: Colors.white,
                                   ),
-                            )
+                            ),
                           ],
                         ),
                       ),
                     ),
                   ),
-                  HomePageSearchInput(),
+                  Positioned(
+                    child: HomePageSearchInput(),
+                  ),
                 ],
               ),
+
               SizedBox(height: Get.height * 0.08),
               CategoryItemsGrid(),
               // SizedBox(height: Get.height * 0.02),
