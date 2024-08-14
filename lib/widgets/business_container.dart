@@ -58,7 +58,12 @@ class BusinessContainer extends StatelessWidget {
                       ),
                 ),
               ),
-              Text("${rating}⭐"),
+              Text(
+                "${rating}⭐",
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
             ],
           ),
           Text(
