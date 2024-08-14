@@ -1,62 +1,19 @@
+import 'package:business_directory/controllers/home_page_bottom_nav_controller.dart';
 import 'package:business_directory/widgets/app_drawer.dart';
 import 'package:business_directory/widgets/business_container.dart';
 import 'package:business_directory/widgets/category_item_grid.dart';
 import 'package:business_directory/widgets/home_page_search_input.dart';
-import 'package:business_directory/widgets/r_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HomePage extends StatelessWidget {
+  final navBarController = Get.put(HomePageBottomNavController());
   HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      drawer: AppDrawer(),
-      appBar: AppBar(
-        leading: Builder(
-          builder: (context) {
-            return IconButton(
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-              icon: Icon(Icons.sort),
-            );
-          },
-        ),
-        actions: [
-          PopupMenuButton(
-            surfaceTintColor: Colors.transparent,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
-            position: PopupMenuPosition.under,
-            itemBuilder: (context) => [
-              PopupMenuItem(
-                value: "en_US",
-                child: Text("English"),
-              ),
-              PopupMenuItem(
-                value: "am_ET",
-                child: Text("አማርኛ"),
-              ),
-            ],
-            icon: Icon(Icons.language),
-            onSelected: (value) {
-              List<String> splittedLocale = value.split("_");
-              Locale locale = Locale(splittedLocale[0], splittedLocale[1]);
-              Get.updateLocale(locale);
-            },
-          ),
-        ],
-        titleTextStyle: Theme.of(context).textTheme.bodyLarge,
-        surfaceTintColor: Colors.transparent,
-        backgroundColor: Colors.transparent,
-        title: Text("businessDirectory".tr),
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
+    List<Widget> items = [
+      SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 12),
         child: Center(
           child: Column(
@@ -155,34 +112,76 @@ class HomePage extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: Get.height * 0.02),
-              Text(
-                "signupToExplore".tr,
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              SizedBox(height: Get.height * 0.02),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  RButton(
-                    label: "signup".tr,
-                    onPressed: () {
-                      Get.toNamed("signup");
-                    },
-                  ),
-                  SizedBox(width: Get.width * 0.02),
-                  RButton(
-                    label: "login".tr,
-                    onPressed: () {
-                      Get.toNamed("login");
-                    },
-                  ),
-                ],
-              ),
             ],
           ),
         ),
       ),
+      Center(
+        child: Text("Profile"),
+      ),
+    ];
+    return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: "Home",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: "Proifle",
+          ),
+        ],
+        currentIndex: navBarController.index.value,
+        onTap: (index) {
+          navBarController.onPageChnaged(index);
+        },
+      ),
+      resizeToAvoidBottomInset: false,
+      drawer: AppDrawer(),
+      appBar: AppBar(
+        leading: Builder(
+          builder: (context) {
+            return IconButton(
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+              icon: Icon(Icons.sort),
+            );
+          },
+        ),
+        actions: [
+          PopupMenuButton(
+            surfaceTintColor: Colors.transparent,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+            position: PopupMenuPosition.under,
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                value: "en_US",
+                child: Text("English"),
+              ),
+              PopupMenuItem(
+                value: "am_ET",
+                child: Text("አማርኛ"),
+              ),
+            ],
+            icon: Icon(Icons.language),
+            onSelected: (value) {
+              List<String> splittedLocale = value.split("_");
+              Locale locale = Locale(splittedLocale[0], splittedLocale[1]);
+              Get.updateLocale(locale);
+            },
+          ),
+        ],
+        titleTextStyle: Theme.of(context).textTheme.bodyLarge,
+        surfaceTintColor: Colors.transparent,
+        backgroundColor: Colors.transparent,
+        title: Text("businessDirectory".tr),
+        centerTitle: true,
+      ),
+      body: Obx(() => items[navBarController.index.value]),
     );
   }
 }
