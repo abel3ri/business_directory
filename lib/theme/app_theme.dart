@@ -28,6 +28,9 @@ class AppTheme {
     useMaterial3: true,
     swapLegacyOnMaterial3: true,
     fontFamily: GoogleFonts.quicksand().fontFamily,
+    scaffoldBackground: Color(0xFFF5F5F5),
+    appBarBackground: Color(0xFFF5F5F5),
+    background: Color(0xFFF5F5F5),
   );
   static ThemeData darkTheme = FlexThemeData.dark(
     colors: const FlexSchemeColor(
@@ -53,5 +56,8 @@ class AppTheme {
     useMaterial3: true,
     swapLegacyOnMaterial3: true,
     fontFamily: GoogleFonts.quicksand().fontFamily,
+    scaffoldBackground: Color(0xFF1E1E1E),
+    appBarBackground: Color(0xFF1E1E1E),
+    background: Color(0xFF1E1E1E),
   );
 }
