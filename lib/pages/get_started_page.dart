@@ -14,10 +14,10 @@ class GetStartedPage extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () {
-              Get.toNamed("home");
+              Get.offNamed("home");
             },
             child: Text(
-              "Skip",
+              "skip".tr,
             ),
             style: ButtonStyle(
               textStyle: WidgetStatePropertyAll(
@@ -35,14 +35,14 @@ class GetStartedPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Welcome to eTech's Business Directory",
+              "welcomeToeTech".tr,
               style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
             ),
             SizedBox(height: Get.height * 0.02),
             Text(
-              "Let us help you explore local business with ease!",
+              "letUsHelp".tr,
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             SizedBox(height: Get.height * 0.04),
@@ -59,19 +59,19 @@ class GetStartedPage extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
               TextSpan(
-                text: "I agree to eTech's BD ",
+                text: "iAgreeTo".tr,
                 children: [
                   TextSpan(
-                    text: "Terms of Serivces ",
+                    text: "termsOfServices".tr,
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.primary,
                     ),
                   ),
                   TextSpan(
-                    text: "and confirm that I have read eTech's BD ",
+                    text: "confirmThat".tr,
                   ),
                   TextSpan(
-                    text: "Privacy Policy",
+                    text: "privacyPolicy".tr,
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.primary,
                     ),
@@ -84,15 +84,15 @@ class GetStartedPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 RButton(
-                    label: "Login",
+                    label: "login".tr,
                     onPressed: () {
-                      Get.toNamed("login");
+                      Get.offNamed("login");
                     }),
                 SizedBox(width: Get.width * 0.02),
                 RButton(
-                    label: "Sign up",
+                    label: "signup".tr,
                     onPressed: () {
-                      Get.toNamed("signup");
+                      Get.offNamed("signup");
                     }),
               ],
             ),
