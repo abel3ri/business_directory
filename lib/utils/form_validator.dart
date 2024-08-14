@@ -17,7 +17,7 @@ class FormValidator {
 
   static String? emailValidator(String? value) {
     if (value!.isEmpty) return "pleaseEnterEmail".tr;
-    if (GetUtils.isEmail(value)) return "pleaseEnterValidEmail".tr;
+    if (!GetUtils.isEmail(value)) return "pleaseEnterValidEmail".tr;
     return null;
   }
 
