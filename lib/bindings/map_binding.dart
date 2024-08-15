@@ -1,9 +1,9 @@
-import 'package:flutter_map/flutter_map.dart';
+import 'package:business_directory/controllers/map_page_controller.dart';
 import 'package:get/get.dart';
 
 class MapBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => MapController());
+    Get.lazyPut(() => MapPageController());
   }
 }
