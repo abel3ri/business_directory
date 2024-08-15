@@ -1,4 +1,6 @@
-import 'package:business_directory/controllers/home_page_bottom_nav_controller.dart';
+import 'package:business_directory/controllers/home_controller.dart';
+import 'package:business_directory/controllers/map_page_controller.dart';
+import 'package:business_directory/services/location_service.dart';
 import 'package:business_directory/widgets/app_drawer.dart';
 import 'package:business_directory/widgets/business_container.dart';
 import 'package:business_directory/widgets/category_item_grid.dart';
@@ -7,14 +9,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HomePage extends StatelessWidget {
-  final navBarController = Get.put(HomePageBottomNavController());
+  final homeController = Get.find<HomeController>();
+  final mapController = Get.find<MapPageController>();
   HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     List<Widget> items = [
       SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 12),
+        physics: BouncingScrollPhysics(),
+        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         child: Center(
           child: Column(
             children: [
@@ -92,6 +96,7 @@ class HomePage extends StatelessWidget {
                     shortDescription: "Ethical, Ethiopian, End-to-End",
                     rating: 4.9,
                     category: "tech",
+                    onPressed: () {},
                   ),
                   BusinessContainer(
                     imagePath: "assets/ride_logo.png",
@@ -100,6 +105,7 @@ class HomePage extends StatelessWidget {
                     shortDescription: "Ethical, Ethiopian, End-to-End",
                     rating: 4.9,
                     category: "meter taxi",
+                    onPressed: () {},
                   ),
                   BusinessContainer(
                     imagePath: "assets/sheraton_addis_logo.png",
@@ -108,6 +114,18 @@ class HomePage extends StatelessWidget {
                     shortDescription: "a Luxury Collection Hotel",
                     rating: 4.9,
                     category: "hotel and spa",
+                    onPressed: () async {
+                      mapController.toggleIsLoading();
+
+                      final res = await LocationService().getCurrentPosition();
+                      mapController.toggleIsLoading();
+                      res.fold((l) {
+                        l.showError();
+                      }, (r) {
+                        mapController.setUserPosition(r);
+                        Get.toNamed("/map");
+                      });
+                    },
                   ),
                 ],
               ),
@@ -131,14 +149,23 @@ class HomePage extends StatelessWidget {
             label: "Proifle",
           ),
         ],
-        currentIndex: navBarController.index.value,
+        currentIndex: homeController.index.value,
         onTap: (index) {
-          navBarController.onPageChnaged(index);
+          homeController.onPageChanged(index);
         },
       ),
       resizeToAvoidBottomInset: false,
       drawer: AppDrawer(),
       appBar: AppBar(
+        bottom: PreferredSize(
+            preferredSize: Size.fromHeight(8),
+            child: Obx(() {
+              return mapController.isLoading.value
+                  ? LinearProgressIndicator(
+                      color: Theme.of(context).colorScheme.secondary,
+                    )
+                  : SizedBox();
+            })),
         leading: Builder(
           builder: (context) {
             return IconButton(
@@ -180,7 +207,7 @@ class HomePage extends StatelessWidget {
         title: Text("businessDirectory".tr),
         centerTitle: true,
       ),
-      body: Obx(() => items[navBarController.index.value]),
+      body: Obx(() => items[homeController.index.value]),
     );
   }
 }
