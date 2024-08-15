@@ -14,6 +14,9 @@ class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      shadowColor: Colors.transparent,
+      surfaceTintColor: Colors.transparent,
       width: Get.width * 0.8,
       shape: RoundedRectangleBorder(),
       child: SafeArea(
