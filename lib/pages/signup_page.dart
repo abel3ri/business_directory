@@ -1,4 +1,4 @@
-import 'package:business_directory/controllers/signup_textfield_controller.dart';
+import 'package:business_directory/controllers/signup_controller.dart';
 import 'package:business_directory/utils/form_validator.dart';
 import 'package:business_directory/widgets/form_footer.dart';
 import 'package:business_directory/widgets/input_field_row.dart';
@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SignupPage extends StatelessWidget {
-  final textFieldController = Get.put(SignupTextfieldController());
+  final signupController = Get.put(SignupController());
   SignupPage({super.key});
 
   @override
@@ -25,7 +25,7 @@ class SignupPage extends StatelessWidget {
         physics: BouncingScrollPhysics(),
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Form(
-          key: textFieldController.formKey,
+          key: signupController.formKey,
           child: Obx(
             () => Column(
               mainAxisSize: MainAxisSize.min,
@@ -44,7 +44,7 @@ class SignupPage extends StatelessWidget {
                 Row(
                   children: [
                     RInputField(
-                      controller: textFieldController.firstNameController,
+                      controller: signupController.firstNameController,
                       label: "firstName".tr,
                       hintText: "enterFirstName".tr,
                       keyboardType: TextInputType.name,
@@ -53,7 +53,7 @@ class SignupPage extends StatelessWidget {
                     ),
                     SizedBox(width: Get.width * 0.04),
                     RInputField(
-                      controller: textFieldController.lastNameController,
+                      controller: signupController.lastNameController,
                       label: "lastName".tr,
                       hintText: "enterLastName".tr,
                       keyboardType: TextInputType.name,
@@ -64,7 +64,7 @@ class SignupPage extends StatelessWidget {
                 ),
                 SizedBox(height: Get.height * 0.02),
                 RInputField(
-                  controller: textFieldController.userNameController,
+                  controller: signupController.userNameController,
                   label: "userName".tr,
                   hintText: "enterUsername".tr,
                   keyboardType: TextInputType.emailAddress,
@@ -73,7 +73,7 @@ class SignupPage extends StatelessWidget {
                 ),
                 SizedBox(height: Get.height * 0.02),
                 RInputField(
-                  controller: textFieldController.emailController,
+                  controller: signupController.emailController,
                   label: "email".tr,
                   hintText: "enterEmail".tr,
                   keyboardType: TextInputType.emailAddress,
@@ -82,18 +82,18 @@ class SignupPage extends StatelessWidget {
                 ),
                 SizedBox(height: Get.height * 0.02),
                 RInputField(
-                  controller: textFieldController.passwordController,
+                  controller: signupController.passwordController,
                   label: "password".tr,
                   hintText: "enterPassword".tr,
-                  obscureText: textFieldController.showPassword.value,
+                  obscureText: signupController.showPassword.value,
                   keyboardType: TextInputType.visiblePassword,
                   textInputAction: TextInputAction.next,
                   suffixIcon: IconButton(
                     onPressed: () {
-                      textFieldController.toggleShowPassword();
+                      signupController.toggleShowPassword();
                     },
                     icon: Icon(
-                      textFieldController.showPassword.value
+                      signupController.showPassword.value
                           ? Icons.visibility_off
                           : Icons.visibility,
                     ),
@@ -102,11 +102,11 @@ class SignupPage extends StatelessWidget {
                 ),
                 SizedBox(height: Get.height * 0.02),
                 RInputField(
-                  controller: textFieldController.rePasswordController,
+                  controller: signupController.rePasswordController,
                   label: "reEnterPassword".tr,
                   hintText: "enterRePassword".tr,
                   keyboardType: TextInputType.visiblePassword,
-                  obscureText: textFieldController.showPassword.value,
+                  obscureText: signupController.showPassword.value,
                   textInputAction: TextInputAction.next,
                   validator: FormValidator.passwordValidtor,
                 ),
@@ -114,7 +114,7 @@ class SignupPage extends StatelessWidget {
                 RButton(
                   label: "signup".tr,
                   onPressed: () {
-                    if (textFieldController.formKey.currentState!.validate()) {
+                    if (signupController.formKey.currentState!.validate()) {
                       print("success");
                     }
                   },

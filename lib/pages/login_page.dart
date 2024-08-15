@@ -1,4 +1,4 @@
-import 'package:business_directory/controllers/login_textfield_controller.dart';
+import 'package:business_directory/controllers/login_controller.dart';
 import 'package:business_directory/utils/form_validator.dart';
 import 'package:business_directory/widgets/form_footer.dart';
 import 'package:business_directory/widgets/input_field_row.dart';
@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginPage extends StatelessWidget {
-  final textFieldController = Get.put(LoginTextfieldController());
+  final loginController = Get.put(LoginController());
 
   LoginPage({super.key});
 
@@ -26,7 +26,7 @@ class LoginPage extends StatelessWidget {
         physics: BouncingScrollPhysics(),
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Form(
-          key: textFieldController.formKey,
+          key: loginController.formKey,
           child: Obx(
             () => Column(
               mainAxisSize: MainAxisSize.min,
@@ -43,7 +43,7 @@ class LoginPage extends StatelessWidget {
                 ),
                 SizedBox(height: Get.height * 0.04),
                 RInputField(
-                  controller: textFieldController.emailController,
+                  controller: loginController.emailController,
                   label: "email".tr,
                   hintText: "enterEmail".tr,
                   keyboardType: TextInputType.emailAddress,
@@ -52,18 +52,18 @@ class LoginPage extends StatelessWidget {
                 ),
                 SizedBox(height: Get.height * 0.02),
                 RInputField(
-                  controller: textFieldController.passwordController,
+                  controller: loginController.passwordController,
                   label: "password".tr,
                   hintText: "enterPassword".tr,
-                  obscureText: textFieldController.showPassword.value,
+                  obscureText: loginController.showPassword.value,
                   keyboardType: TextInputType.visiblePassword,
                   textInputAction: TextInputAction.next,
                   suffixIcon: IconButton(
                     onPressed: () {
-                      textFieldController.toggleShowPassword();
+                      loginController.toggleShowPassword();
                     },
                     icon: Icon(
-                      textFieldController.showPassword.value
+                      loginController.showPassword.value
                           ? Icons.visibility_off
                           : Icons.visibility,
                     ),
@@ -74,7 +74,7 @@ class LoginPage extends StatelessWidget {
                 RButton(
                   label: "login".tr,
                   onPressed: () {
-                    if (textFieldController.formKey.currentState!.validate()) {
+                    if (loginController.formKey.currentState!.validate()) {
                       print("success");
                     }
                   },
