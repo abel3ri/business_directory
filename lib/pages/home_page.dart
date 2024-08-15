@@ -1,5 +1,5 @@
 import 'package:business_directory/controllers/home_controller.dart';
-import 'package:business_directory/controllers/map_page_controller.dart';
+import 'package:business_directory/pages/profile_page.dart';
 import 'package:business_directory/services/location_service.dart';
 import 'package:business_directory/widgets/app_drawer.dart';
 import 'package:business_directory/widgets/business_container.dart';
@@ -10,7 +10,6 @@ import 'package:get/get.dart';
 
 class HomePage extends StatelessWidget {
   final homeController = Get.find<HomeController>();
-  final mapController = Get.find<MapPageController>();
   HomePage({super.key});
 
   @override
@@ -115,14 +114,13 @@ class HomePage extends StatelessWidget {
                     rating: 4.9,
                     category: "hotel and spa",
                     onPressed: () async {
-                      mapController.toggleIsLoading();
-
+                      homeController.toggleIsLoading();
                       final res = await LocationService().getCurrentPosition();
-                      mapController.toggleIsLoading();
+                      homeController.toggleIsLoading();
                       res.fold((l) {
                         l.showError();
                       }, (r) {
-                        mapController.setUserPosition(r);
+                        homeController.setUserPosition(r);
                         Get.toNamed("/map");
                       });
                     },
@@ -134,8 +132,12 @@ class HomePage extends StatelessWidget {
         ),
       ),
       Center(
-        child: Text("Profile"),
+        child: Text("Search"),
       ),
+      Center(
+        child: Text("Favorites"),
+      ),
+      ProfilePage(),
     ];
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
@@ -143,6 +145,14 @@ class HomePage extends StatelessWidget {
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: "Home",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: "Search",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite_rounded),
+            label: "Favorites",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
@@ -160,7 +170,7 @@ class HomePage extends StatelessWidget {
         bottom: PreferredSize(
             preferredSize: Size.fromHeight(8),
             child: Obx(() {
-              return mapController.isLoading.value
+              return homeController.isLoading.value
                   ? LinearProgressIndicator(
                       color: Theme.of(context).colorScheme.secondary,
                     )
