@@ -65,8 +65,9 @@ class BusinessContainer extends StatelessWidget {
               label: Text(
                 category.toUpperCase(),
                 overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(
                       fontWeight: FontWeight.bold,
+                      fontSize: 8,
                     ),
               ),
             ),

@@ -63,10 +63,8 @@ class HomePage extends StatelessWidget {
                   ),
                 ],
               ),
-
               SizedBox(height: Get.height * 0.08),
               CategoryItemsGrid(),
-              // SizedBox(height: Get.height * 0.02),
               Divider(),
               Center(
                 child: Text(
