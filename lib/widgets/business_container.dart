@@ -11,6 +11,7 @@ class BusinessContainer extends StatelessWidget {
     required this.rating,
     required this.shortDescription,
     required this.category,
+    required this.onPressed,
   });
 
   final String imagePath;
@@ -19,6 +20,7 @@ class BusinessContainer extends StatelessWidget {
   final String shortDescription;
   final String location;
   final String category;
+  final Function() onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +104,7 @@ class BusinessContainer extends StatelessWidget {
                 "showDirection".tr,
                 style: Theme.of(context).textTheme.bodySmall,
               ),
-              onPressed: () {},
+              onPressed: onPressed,
               iconAlignment: IconAlignment.end,
               icon: Icon(Icons.directions),
             )
