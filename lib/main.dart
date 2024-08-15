@@ -1,8 +1,10 @@
+import 'package:business_directory/bindings/home_bindings.dart';
 import 'package:business_directory/controllers/theme_controller.dart';
 import 'package:business_directory/l10n/app_translations.dart';
 import 'package:business_directory/pages/get_started_page.dart';
 import 'package:business_directory/pages/home_page.dart';
 import 'package:business_directory/pages/login_page.dart';
+import 'package:business_directory/pages/map_page.dart';
 import 'package:business_directory/pages/signup_page.dart';
 import 'package:business_directory/theme/app_theme.dart';
 import 'package:flutter/material.dart';
@@ -31,22 +33,11 @@ void main(List<String> args) async {
       defaultTransition: Transition.cupertino,
       initialRoute: "/getStarted",
       getPages: [
-        GetPage(
-          name: "/getStarted",
-          page: () => GetStartedPage(),
-        ),
-        GetPage(
-          name: "/home",
-          page: () => HomePage(),
-        ),
-        GetPage(
-          name: "/login",
-          page: () => LoginPage(),
-        ),
-        GetPage(
-          name: "/signup",
-          page: () => SignupPage(),
-        ),
+        GetPage(name: "/getStarted", page: () => GetStartedPage()),
+        GetPage(name: "/home", page: () => HomePage(), binding: HomeBindings()),
+        GetPage(name: "/login", page: () => LoginPage()),
+        GetPage(name: "/signup", page: () => SignupPage()),
+        GetPage(name: "/map", page: () => MapPage()),
       ],
       // themeMode: ,
     ),
