@@ -35,13 +35,13 @@ class MapPage extends StatelessWidget {
                   markers: [
                     Marker(
                       point: LatLng(
-                        mapPageController.userPostion.value!.latitude,
-                        mapPageController.userPostion.value!.longitude,
+                        mapPageController.userPosition.value!.latitude,
+                        mapPageController.userPosition.value!.longitude,
                       ),
                       child: Icon(
                         Icons.location_on,
                         color: Theme.of(context).colorScheme.primary,
-                        size: 42,
+                        size: 32,
                       ),
                     ),
                   ],
