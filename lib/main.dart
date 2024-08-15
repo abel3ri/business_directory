@@ -1,4 +1,5 @@
-import 'package:business_directory/bindings/home_bindings.dart';
+import 'package:business_directory/bindings/home_binding.dart';
+import 'package:business_directory/bindings/map_binding.dart';
 import 'package:business_directory/controllers/theme_controller.dart';
 import 'package:business_directory/l10n/app_translations.dart';
 import 'package:business_directory/pages/get_started_page.dart';
@@ -34,10 +35,10 @@ void main(List<String> args) async {
       initialRoute: "/getStarted",
       getPages: [
         GetPage(name: "/getStarted", page: () => GetStartedPage()),
-        GetPage(name: "/home", page: () => HomePage(), binding: HomeBindings()),
+        GetPage(name: "/home", page: () => HomePage(), binding: HomeBinding()),
         GetPage(name: "/login", page: () => LoginPage()),
         GetPage(name: "/signup", page: () => SignupPage()),
-        GetPage(name: "/map", page: () => MapPage()),
+        GetPage(name: "/map", page: () => MapPage(), binding: MapBinding()),
       ],
       // themeMode: ,
     ),
