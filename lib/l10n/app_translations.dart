@@ -52,8 +52,8 @@ class AppTranslations extends Translations {
           "welcomeToeTech": "Welcome to eTech's Business Directory",
           "letUsHelp": "Let us help you explore local businesses with ease!",
           "iAgreeTo": "I agree to eTech's BD ",
-          "termsOfServices": "Terms of Services",
-          "confirmThat": "Confirm that I have read eTech's BD",
+          "termsOfServices": "Terms of Services ",
+          "confirmThat": "Confirm that I have read eTech's BD ",
           "privacyPolicy": "Privacy Policy",
         },
         "am_ET": {
@@ -104,7 +104,7 @@ class AppTranslations extends Translations {
           "letUsHelp": "በአካባቢዎ ያሉ ቢዝነሶች እኛ ጋር በቀላሉ ያግኙ!",
           "iAgreeTo": "I agree to eTech's BD ",
           "termsOfServices": "Terms of Services ",
-          "confirmThat": "Confirm that I have read eTech's BD",
+          "confirmThat": "Confirm that I have read eTech's BD ",
           "privacyPolicy": "Privacy Policy",
         },
       };
