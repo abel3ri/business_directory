@@ -140,29 +140,31 @@ class HomePage extends StatelessWidget {
       ProfilePage(),
     ];
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: "Home",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: "Search",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite_rounded),
-            label: "Favorites",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: "Proifle",
-          ),
-        ],
-        currentIndex: homeController.index.value,
-        onTap: (index) {
-          homeController.onPageChanged(index);
-        },
+      bottomNavigationBar: Obx(
+        () => BottomNavigationBar(
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: "Home",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.search),
+              label: "Search",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.favorite_rounded),
+              label: "Favorites",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: "Proifle",
+            ),
+          ],
+          currentIndex: homeController.index.value,
+          onTap: (index) {
+            homeController.onPageChanged(index);
+          },
+        ),
       ),
       resizeToAvoidBottomInset: false,
       drawer: AppDrawer(),
