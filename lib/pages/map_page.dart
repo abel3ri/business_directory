@@ -17,6 +17,15 @@ class MapPage extends StatelessWidget {
       appBar: AppBar(
         title: Text("Map Page"),
         centerTitle: true,
+        bottom: PreferredSize(
+            preferredSize: Size.fromHeight(8),
+            child: Obx(() {
+              return mapPageController.isLoading.value
+                  ? LinearProgressIndicator(
+                      color: Theme.of(context).colorScheme.primary,
+                    )
+                  : SizedBox.shrink();
+            })),
       ),
       body: Center(
         child: SizedBox(
@@ -32,6 +41,14 @@ class MapPage extends StatelessWidget {
                   urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                   userAgentPackageName: 'com.example.app',
                 ),
+                if (!mapPageController.isLoading.value)
+                  PolylineLayer(polylines: [
+                    Polyline(
+                      points: mapPageController.routePoints.value!,
+                      color: Theme.of(context).colorScheme.primary,
+                      strokeWidth: 6,
+                    )
+                  ]),
                 MarkerLayer(
                   markers: [
                     Marker(
@@ -52,8 +69,7 @@ class MapPage extends StatelessWidget {
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                     decoration: BoxDecoration(
-                      color: Colors.grey.shade600,
-                      // borderRadius: BorderRadius.circular(4),
+                      color: Theme.of(context).scaffoldBackgroundColor,
                     ),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,

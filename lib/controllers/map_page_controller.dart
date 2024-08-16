@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:business_directory/services/location_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -8,12 +9,16 @@ import 'package:business_directory/controllers/home_controller.dart';
 
 class MapPageController extends GetxController {
   Rx<Position?> userPosition = Rx<Position?>(null);
-  Rx<bool> isLoading = false.obs;
+  Rx<bool> isLoading = true.obs;
   late StreamSubscription<Position> locationUpdateStream;
   Rx<double> currentZoom = 12.0.obs;
   Rx<LatLng?> currentCenter = Rx<LatLng?>(null);
 
+  Rx<List<LatLng>?> routePoints = Rx<List<LatLng>?>(null);
+
   MapPageController() {
+    /// mock business latlng
+    LatLng businessCoords = LatLng(9.005647240117275, 38.789157440757506);
     userPosition.value = Get.find<HomeController>().userPosition.value;
     currentCenter.value = LatLng(
       userPosition.value!.latitude,
@@ -21,12 +26,28 @@ class MapPageController extends GetxController {
     );
     locationUpdateStream = Geolocator.getPositionStream(
       locationSettings: LocationSettings(
+        // distanceFilter: 3,
         accuracy: LocationAccuracy.best,
       ),
-    ).listen((position) {
-      userPosition.value = position;
-      currentCenter.value = LatLng(position.latitude, position.longitude);
-      print(position);
+    ).listen((position) async {
+      try {
+        userPosition.value = position;
+        currentCenter.value = LatLng(position.latitude, position.longitude);
+        final res = await LocationService().getRoutePoints(
+          userCoords: currentCenter.value!,
+          businessCoords: businessCoords,
+        );
+
+        res.fold((l) {
+          l.showError();
+        }, (r) {
+          routePoints.value = r;
+        });
+      } catch (e) {
+        print(e);
+      } finally {
+        isLoading.value = false;
+      }
     });
   }
 

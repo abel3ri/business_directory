@@ -1,6 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:business_directory/models/app_error.dart';
+import 'package:latlong2/latlong.dart';
 
 class LocationService {
   Future<Either<AppError, bool>> requestPermission() async {
@@ -57,6 +59,41 @@ class LocationService {
         },
       );
     } catch (e) {
+      return left(AppError(body: e.toString()));
+    }
+  }
+
+  Future<Either<AppError, List<LatLng>>> getRoutePoints({
+    required LatLng userCoords,
+    required LatLng businessCoords,
+  }) async {
+    try {
+      BaseOptions options = BaseOptions(
+        baseUrl: "http://router.project-osrm.org/route/v1/driving/",
+        queryParameters: {
+          "steps": true,
+          "annotations": true,
+          "geometries": "geojson",
+          "overview": "full",
+        },
+      );
+      Dio dio = Dio(options);
+
+      final response = await dio.get(
+        "${userCoords.longitude},${userCoords.latitude};${businessCoords.longitude},${userCoords.latitude}",
+      );
+
+      final coordArr =
+          List.from(response.data['routes'][0]['geometry']['coordinates']);
+      final routePoints = coordArr.map((coord) {
+        return LatLng(coord[1], coord[0]);
+      }).toList();
+      return right(routePoints);
+    } on DioException catch (e) {
+      print(e.message);
+      return left(AppError(body: e.message!));
+    } catch (e) {
+      print(e.toString());
       return left(AppError(body: e.toString()));
     }
   }
