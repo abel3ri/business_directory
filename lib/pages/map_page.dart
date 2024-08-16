@@ -1,5 +1,6 @@
 // import 'package:business_directory/controllers/map_controller.dart';
 import 'package:business_directory/controllers/map_page_controller.dart';
+import 'package:business_directory/widgets/map_zoom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:get/get.dart';
@@ -49,34 +50,24 @@ class MapPage extends StatelessWidget {
                 Align(
                   alignment: Alignment.bottomRight,
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                     decoration: BoxDecoration(
-                      color: Colors.grey.shade300,
-                      borderRadius: BorderRadius.circular(4),
+                      color: Colors.grey.shade600,
+                      // borderRadius: BorderRadius.circular(4),
                     ),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        GestureDetector(
-                          onTap: () {
-                            mapPageController.increaseCurrentZoom();
-                            _mapController.move(
-                              mapPageController.currentCenter.value!,
-                              mapPageController.currentZoom.value,
-                            );
-                          },
-                          child: Icon(Icons.add),
+                        MapZoomButton(
+                          mapPageController: mapPageController,
+                          mapController: _mapController,
+                          icon: Icons.add,
                         ),
                         SizedBox(height: 4),
-                        GestureDetector(
-                          onTap: () {
-                            mapPageController.decreaseCurrentZoom();
-                            _mapController.move(
-                              mapPageController.currentCenter.value!,
-                              mapPageController.currentZoom.value,
-                            );
-                          },
-                          child: Icon(Icons.remove),
+                        MapZoomButton(
+                          mapPageController: mapPageController,
+                          mapController: _mapController,
+                          icon: Icons.remove,
                         ),
                       ],
                     ),
