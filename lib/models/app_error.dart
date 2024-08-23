@@ -14,9 +14,7 @@ class AppError {
       GetSnackBar(
         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         duration: Duration(seconds: 3),
-        animationDuration: Duration(milliseconds: 300),
-        snackStyle: SnackStyle.GROUNDED,
-        borderRadius: 100,
+        animationDuration: Duration(milliseconds: 500),
         backgroundColor: Colors.red,
         messageText: Padding(
           padding: EdgeInsets.only(bottom: 8),
@@ -29,6 +27,7 @@ class AppError {
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
+                  color: Colors.white,
                 ),
               ),
             ),
