@@ -14,7 +14,7 @@ class GetStartedPage extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () {
-              Get.offNamed("home");
+              Get.toNamed("home");
             },
             child: Text(
               "skip".tr,
@@ -86,13 +86,13 @@ class GetStartedPage extends StatelessWidget {
                 RButton(
                     label: "login".tr,
                     onPressed: () {
-                      Get.offNamed("login");
+                      Get.toNamed("login");
                     }),
                 SizedBox(width: Get.width * 0.02),
                 RButton(
                     label: "signup".tr,
                     onPressed: () {
-                      Get.offNamed("signup");
+                      Get.toNamed("signup");
                     }),
               ],
             ),
