@@ -1,5 +1,6 @@
 // import 'package:business_directory/controllers/map_controller.dart';
 import 'package:business_directory/controllers/map_page_controller.dart';
+import 'package:business_directory/widgets/custom_app_bar.dart';
 import 'package:business_directory/widgets/map_zoom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -14,18 +15,15 @@ class MapPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: CustomAppBar(
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(Icons.arrow_back_ios_new),
+        ),
         title: Text("Map Page"),
-        centerTitle: true,
-        bottom: PreferredSize(
-            preferredSize: Size.fromHeight(8),
-            child: Obx(() {
-              return mapPageController.isLoading.value
-                  ? LinearProgressIndicator(
-                      color: Theme.of(context).colorScheme.primary,
-                    )
-                  : SizedBox.shrink();
-            })),
+        bottomRenderCondtion: mapPageController.isLoading,
       ),
       body: Center(
         child: SizedBox(
@@ -33,6 +31,11 @@ class MapPage extends StatelessWidget {
             return FlutterMap(
               mapController: _mapController,
               options: MapOptions(
+                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                maxZoom: 14,
+                onPositionChanged: (camera, hasGesture) {
+                  mapPageController.updateCenter(camera.center);
+                },
                 initialZoom: mapPageController.currentZoom.value,
                 initialCenter: mapPageController.currentCenter.value!,
               ),
@@ -41,7 +44,8 @@ class MapPage extends StatelessWidget {
                   urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                   userAgentPackageName: 'com.example.app',
                 ),
-                if (!mapPageController.isLoading.value)
+                if (!mapPageController.isLoading.value &&
+                    mapPageController.routePoints.value != null)
                   PolylineLayer(polylines: [
                     Polyline(
                       points: mapPageController.routePoints.value!,
@@ -58,6 +62,17 @@ class MapPage extends StatelessWidget {
                       ),
                       child: Icon(
                         Icons.location_on,
+                        color: Theme.of(context).colorScheme.primary,
+                        size: 32,
+                      ),
+                    ),
+                    Marker(
+                      point: LatLng(
+                        mapPageController.businessCoords.latitude,
+                        mapPageController.businessCoords.longitude,
+                      ),
+                      child: Icon(
+                        Icons.my_location_rounded,
                         color: Theme.of(context).colorScheme.primary,
                         size: 32,
                       ),
