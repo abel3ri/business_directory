@@ -13,12 +13,12 @@ class MapPageController extends GetxController {
   late StreamSubscription<Position> locationUpdateStream;
   Rx<double> currentZoom = 12.0.obs;
   Rx<LatLng?> currentCenter = Rx<LatLng?>(null);
+  LatLng businessCoords = LatLng(9.005647240117275, 38.789157440757506);
+  Timer? _cameraPositionUpdateFnTimer;
 
   Rx<List<LatLng>?> routePoints = Rx<List<LatLng>?>(null);
 
   MapPageController() {
-    /// mock business latlng
-    LatLng businessCoords = LatLng(9.005647240117275, 38.789157440757506);
     userPosition.value = Get.find<HomeController>().userPosition.value;
     currentCenter.value = LatLng(
       userPosition.value!.latitude,
@@ -61,6 +61,15 @@ class MapPageController extends GetxController {
 
   void decreaseCurrentZoom() {
     currentZoom.value -= 1;
+  }
+
+  void updateCenter(LatLng newCenter) {
+    if (_cameraPositionUpdateFnTimer?.isActive ?? false)
+      _cameraPositionUpdateFnTimer!.cancel();
+    _cameraPositionUpdateFnTimer = Timer(const Duration(milliseconds: 300), () {
+      print(newCenter);
+      currentCenter.value = newCenter;
+    });
   }
 
   @override
