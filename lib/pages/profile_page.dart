@@ -39,17 +39,17 @@ class ProfilePage extends StatelessWidget {
               ),
               SizedBox(height: Get.height * 0.02),
               ProfileDetailRow(
-                label: "E-mail",
+                label: "email".tr,
                 data: "test@test.com",
               ),
               SizedBox(height: Get.height * 0.02),
               ProfileDetailRow(
-                label: "Phone",
+                label: "phone".tr,
                 data: "+251900000000",
               ),
               SizedBox(height: Get.height * 0.02),
               ProfileDetailRow(
-                label: "Date Joined",
+                label: "dateJoined".tr,
                 data: "Aug 16, 2024",
               ),
             ],
@@ -60,7 +60,7 @@ class ProfilePage extends StatelessWidget {
           physics: BouncingScrollPhysics(),
           children: [
             ProfilePageTile(
-              title: "Theme",
+              title: "theme".tr,
               onPressed: null,
               icon: Icons.color_lens,
               trailing: DropdownButton(
@@ -70,15 +70,15 @@ class ProfilePage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
                 items: [
                   DropdownMenuItem(
-                    child: Text("System"),
+                    child: Text("system".tr),
                     value: "system",
                   ),
                   DropdownMenuItem(
-                    child: Text("Light"),
+                    child: Text("light".tr),
                     value: "light",
                   ),
                   DropdownMenuItem(
-                    child: Text("Dark"),
+                    child: Text("dark".tr),
                     value: "dark",
                   )
                 ],
@@ -86,19 +86,19 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
             ProfilePageTile(
-              title: "Help & Support",
+              title: "helpAndSupport".tr,
               onPressed: () {},
               icon: Icons.help,
               trailing: Icon(Icons.arrow_forward_ios_rounded),
             ),
             ProfilePageTile(
-              title: "Privacy Policy",
+              title: "privacyAndPolicy".tr,
               icon: Icons.shield,
               onPressed: () {},
               trailing: Icon(Icons.arrow_forward_ios_rounded),
             ),
             ProfilePageTile(
-              title: "Terms & Conditions",
+              title: "termsAndConditions".tr,
               icon: Icons.article_sharp,
               onPressed: () {},
               trailing: Icon(Icons.arrow_forward_ios_rounded),
