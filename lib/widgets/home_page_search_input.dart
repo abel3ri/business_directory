@@ -16,7 +16,9 @@ class HomePageSearchInput extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
         decoration: BoxDecoration(
-          color: Theme.of(context).scaffoldBackgroundColor.lighten(10),
+          color: Get.isDarkMode
+              ? Theme.of(context).scaffoldBackgroundColor.lighten(10)
+              : Theme.of(context).scaffoldBackgroundColor.darken(10),
           borderRadius: BorderRadius.circular(8),
         ),
         child: TextField(
@@ -26,7 +28,7 @@ class HomePageSearchInput extends StatelessWidget {
               horizontal: 12,
               vertical: 12,
             ),
-            hintText: "Search businesses",
+            hintText: "searchBusiness".tr,
             suffixIcon: IconButton(
               onPressed: () {},
               icon: Icon(Icons.search),
@@ -44,7 +46,7 @@ class HomePageSearchInput extends StatelessWidget {
             filled: true,
             fillColor: Get.isDarkMode
                 ? Theme.of(context).scaffoldBackgroundColor.lighten(20)
-                : Theme.of(context).scaffoldBackgroundColor.darken(10),
+                : Theme.of(context).scaffoldBackgroundColor.lighten(10),
           ),
           onChanged: (value) {},
         ),
