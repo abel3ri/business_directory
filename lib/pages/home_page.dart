@@ -4,6 +4,7 @@ import 'package:business_directory/services/location_service.dart';
 import 'package:business_directory/widgets/app_drawer.dart';
 import 'package:business_directory/widgets/business_container.dart';
 import 'package:business_directory/widgets/category_item_grid.dart';
+import 'package:business_directory/widgets/custom_app_bar.dart';
 import 'package:business_directory/widgets/home_page_search_input.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -69,23 +70,15 @@ class HomePage extends StatelessWidget {
               SizedBox(height: Get.height * 0.08),
               CategoryItemsGrid(),
               Divider(),
-              Center(
-                child: Text(
-                  "popularBusiness".tr,
-                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                ),
-              ),
               SizedBox(height: Get.height * 0.02),
               GridView(
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  mainAxisSpacing: 8,
-                  crossAxisSpacing: 8,
-                  childAspectRatio: 1 / 2.4,
+                  mainAxisSpacing: 2,
+                  crossAxisSpacing: 0,
+                  childAspectRatio: 0.55,
                 ),
                 children: [
                   BusinessContainer(
@@ -95,16 +88,36 @@ class HomePage extends StatelessWidget {
                     shortDescription: "Ethical, Ethiopian, End-to-End",
                     rating: 4.9,
                     category: "tech",
-                    onPressed: () {},
+                    onPressed: () async {
+                      homeController.toggleIsLoading();
+                      final res = await LocationService().getCurrentPosition();
+                      homeController.toggleIsLoading();
+                      res.fold((l) {
+                        l.showError();
+                      }, (r) {
+                        homeController.setUserPosition(r);
+                        Get.toNamed("/map");
+                      });
+                    },
                   ),
                   BusinessContainer(
                     imagePath: "assets/ride_logo.png",
                     name: "Ride Meter Taxi",
                     location: "Bole Edna mall, Addis Ababa",
-                    shortDescription: "Ethical, Ethiopian, End-to-End",
+                    shortDescription: "Your Reliable Ride, Anytime, Anywhere",
                     rating: 4.9,
                     category: "meter taxi",
-                    onPressed: () {},
+                    onPressed: () async {
+                      homeController.toggleIsLoading();
+                      final res = await LocationService().getCurrentPosition();
+                      homeController.toggleIsLoading();
+                      res.fold((l) {
+                        l.showError();
+                      }, (r) {
+                        homeController.setUserPosition(r);
+                        Get.toNamed("/map");
+                      });
+                    },
                   ),
                   BusinessContainer(
                     imagePath: "assets/sheraton_addis_logo.png",
@@ -168,16 +181,8 @@ class HomePage extends StatelessWidget {
       ),
       resizeToAvoidBottomInset: false,
       drawer: AppDrawer(),
-      appBar: AppBar(
-        bottom: PreferredSize(
-            preferredSize: Size.fromHeight(8),
-            child: Obx(() {
-              return homeController.isLoading.value
-                  ? LinearProgressIndicator(
-                      color: Theme.of(context).colorScheme.secondary,
-                    )
-                  : SizedBox();
-            })),
+      appBar: CustomAppBar(
+        bottomRenderCondtion: homeController.isLoading,
         leading: Builder(
           builder: (context) {
             return IconButton(
@@ -205,7 +210,7 @@ class HomePage extends StatelessWidget {
                 child: Text("አማርኛ"),
               ),
             ],
-            icon: Icon(Icons.language),
+            icon: Icon(Icons.translate_rounded),
             onSelected: (value) {
               List<String> splittedLocale = value.split("_");
               Locale locale = Locale(splittedLocale[0], splittedLocale[1]);
@@ -213,11 +218,7 @@ class HomePage extends StatelessWidget {
             },
           ),
         ],
-        titleTextStyle: Theme.of(context).textTheme.bodyLarge,
-        surfaceTintColor: Colors.transparent,
-        backgroundColor: Colors.transparent,
         title: Text("businessDirectory".tr),
-        centerTitle: true,
       ),
       body: Obx(() => items[homeController.index.value]),
     );
