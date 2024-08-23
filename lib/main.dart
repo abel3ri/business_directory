@@ -2,6 +2,7 @@ import 'package:business_directory/bindings/home_binding.dart';
 import 'package:business_directory/bindings/map_binding.dart';
 import 'package:business_directory/controllers/theme_controller.dart';
 import 'package:business_directory/l10n/app_translations.dart';
+import 'package:business_directory/pages/business_details_page.dart';
 import 'package:business_directory/pages/get_started_page.dart';
 import 'package:business_directory/pages/home_page.dart';
 import 'package:business_directory/pages/login_page.dart';
@@ -39,6 +40,8 @@ void main(List<String> args) async {
         GetPage(name: "/login", page: () => LoginPage()),
         GetPage(name: "/signup", page: () => SignupPage()),
         GetPage(name: "/map", page: () => MapPage(), binding: MapBinding()),
+        GetPage(
+            name: "/business-details-page", page: () => BusinessDetailsPage()),
       ],
       // themeMode: ,
     ),
