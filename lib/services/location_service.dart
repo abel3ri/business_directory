@@ -71,8 +71,8 @@ class LocationService {
       BaseOptions options = BaseOptions(
         baseUrl: "http://router.project-osrm.org/route/v1/driving/",
         queryParameters: {
-          "steps": true,
-          "annotations": true,
+          "steps": false,
+          "annotations": false,
           "geometries": "geojson",
           "overview": "full",
         },
@@ -80,7 +80,7 @@ class LocationService {
       Dio dio = Dio(options);
 
       final response = await dio.get(
-        "${userCoords.longitude},${userCoords.latitude};${businessCoords.longitude},${userCoords.latitude}",
+        "${userCoords.longitude},${userCoords.latitude};${businessCoords.longitude},${businessCoords.latitude}",
       );
 
       final coordArr =
