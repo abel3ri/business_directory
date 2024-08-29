@@ -5,10 +5,10 @@ class LoginController extends GetxController {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
-  final showPassword = false.obs;
+  final obscureText = true.obs;
 
   void toggleShowPassword() {
-    showPassword.value = !showPassword.value;
+    obscureText.value = !obscureText.value;
   }
 
   @override
