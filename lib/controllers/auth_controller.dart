@@ -1,5 +1,6 @@
 import 'package:business_directory/models/app_error.dart';
 import 'package:business_directory/models/user.dart';
+import 'package:business_directory/utils/utils.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fpdart/fpdart.dart';
@@ -9,10 +10,6 @@ class AuthController extends GetxController {
   Rx<User?> currentUser = Rx<User?>(null);
   FlutterSecureStorage secureStorage = FlutterSecureStorage();
   Rx<bool> isLoading = false.obs;
-  late Dio dio;
-  AuthController() {
-    dio = Dio(BaseOptions(baseUrl: "http://10.0.2.2:8000/api/v1"));
-  }
 
   Future<Either<AppError, void>> signupUser(
       Map<String, dynamic> userData) async {
@@ -68,6 +65,27 @@ class AuthController extends GetxController {
       await secureStorage.delete(
         key: "jwtToken",
       );
+      return right(null);
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return left(AppError(body: e.response!.data['message']));
+      }
+      return left(AppError(body: e.toString()));
+    } catch (e) {
+      return left(AppError(body: e.toString()));
+    }
+  }
+
+  Future<Either<AppError, void>> getUserData() async {
+    try {
+      final token = await secureStorage.read(key: "jwtToken");
+      dio.options.headers = {
+        "Authorization": "Bearer ${token}",
+      };
+      final res = await dio.get("/users/profile");
+      final user = User.fromJson(res.data['data']);
+      currentUser.value = user;
+
       return right(null);
     } on DioException catch (e) {
       if (e.response != null) {
