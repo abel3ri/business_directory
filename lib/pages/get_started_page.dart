@@ -21,9 +21,9 @@ class GetStartedPage extends StatelessWidget {
             ),
             style: ButtonStyle(
               textStyle: WidgetStatePropertyAll(
-                Theme.of(context).textTheme.bodyLarge!.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+                Get.textTheme.bodyLarge!.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
@@ -36,14 +36,16 @@ class GetStartedPage extends StatelessWidget {
           children: [
             Text(
               "welcomeToeTech".tr,
-              style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+              textAlign: TextAlign.center,
+              style: Get.textTheme.headlineLarge!.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
             ),
             SizedBox(height: Get.height * 0.02),
             Text(
               "letUsHelp".tr,
-              style: Theme.of(context).textTheme.bodyLarge,
+              textAlign: TextAlign.center,
+              style: Get.textTheme.bodyLarge,
             ),
             SizedBox(height: Get.height * 0.04),
             Center(
@@ -55,16 +57,16 @@ class GetStartedPage extends StatelessWidget {
             Spacer(),
             Text.rich(
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+              style: Get.textTheme.bodyMedium!.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
               TextSpan(
                 text: "iAgreeTo".tr,
                 children: [
                   TextSpan(
                     text: "termsOfServices".tr,
                     style: TextStyle(
-                      color: Theme.of(context).colorScheme.primary,
+                      color: Get.theme.colorScheme.primary,
                     ),
                   ),
                   TextSpan(
@@ -73,7 +75,7 @@ class GetStartedPage extends StatelessWidget {
                   TextSpan(
                     text: "privacyPolicy".tr,
                     style: TextStyle(
-                      color: Theme.of(context).colorScheme.primary,
+                      color: Get.theme.colorScheme.primary,
                     ),
                   )
                 ],
@@ -84,13 +86,13 @@ class GetStartedPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 RButton(
-                    label: "login".tr,
+                    child: Text("login".tr),
                     onPressed: () {
                       Get.toNamed("login");
                     }),
                 SizedBox(width: Get.width * 0.02),
                 RButton(
-                    label: "signup".tr,
+                    child: Text("signup".tr),
                     onPressed: () {
                       Get.toNamed("signup");
                     }),
