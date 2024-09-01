@@ -1,3 +1,4 @@
+import 'package:business_directory/models/business.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -5,34 +6,29 @@ import 'package:get/get.dart';
 class BusinessContainer extends StatelessWidget {
   const BusinessContainer({
     super.key,
-    required this.imagePath,
-    required this.name,
-    required this.location,
-    required this.rating,
-    required this.shortDescription,
-    required this.category,
+    required this.business,
     required this.onPressed,
   });
 
-  final String imagePath;
-  final String name;
-  final double rating;
-  final String shortDescription;
-  final String location;
-  final String category;
+  final Business business;
   final Function() onPressed;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.toNamed("business-details-page");
+        Get.toNamed(
+          "business-details-page",
+          arguments: {
+            "business": business,
+          },
+        );
       },
       child: Card(
         clipBehavior: Clip.antiAliasWithSaveLayer,
         color: Get.isDarkMode
-            ? Theme.of(context).scaffoldBackgroundColor.darken(5)
-            : Theme.of(context).scaffoldBackgroundColor.lighten(10),
+            ? Get.theme.scaffoldBackgroundColor.darken(5)
+            : Get.theme.scaffoldBackgroundColor.lighten(10),
         elevation: 4,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
@@ -44,27 +40,32 @@ class BusinessContainer extends StatelessWidget {
               SizedBox(
                 height: 64,
                 width: 64,
-                child: Image.asset(
-                  imagePath,
-                  fit: BoxFit.cover,
+                child: Hero(
+                  tag: business.name,
+                  child: Image.network(
+                    business.logo!,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               SizedBox(height: Get.height * 0.01),
               Text(
-                name,
+                business.name,
                 overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+                style: Get.textTheme.bodyLarge!.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
 
               SizedBox(height: Get.height * 0.01),
               Text(
-                '"${shortDescription}"',
+                '${business.description}',
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: Get.textTheme.bodySmall!.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               Divider(),
               Chip(
@@ -73,12 +74,12 @@ class BusinessContainer extends StatelessWidget {
                 padding: EdgeInsets.all(0),
                 side: BorderSide.none,
                 label: Text(
-                  category.toUpperCase(),
+                  "tech",
                   overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 8,
-                      ),
+                  style: Get.textTheme.bodySmall!.copyWith(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 8,
+                  ),
                 ),
               ),
 
@@ -86,31 +87,31 @@ class BusinessContainer extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "${rating}",
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                    "${business.averageRating ?? "No ratings"}",
+                    style: Get.textTheme.bodyMedium!.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   Icon(
                     Icons.star_rounded,
                     size: 16,
-                    color: Theme.of(context).colorScheme.primary,
+                    color: Get.theme.colorScheme.primary,
                   ),
                 ],
               ),
               Divider(),
               Spacer(),
               Text(
-                '${location}',
+                '${business.address}',
                 overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.bodySmall,
+                style: Get.textTheme.bodySmall,
                 textAlign: TextAlign.center,
               ),
               // Spacer(),
               TextButton.icon(
                 label: Text(
                   "showDirection".tr,
-                  style: Theme.of(context).textTheme.bodySmall,
+                  style: Get.textTheme.bodySmall,
                 ),
                 onPressed: onPressed,
                 iconAlignment: IconAlignment.end,
