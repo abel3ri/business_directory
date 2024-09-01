@@ -10,137 +10,106 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HomePage extends StatelessWidget {
-  final homeController = Get.find<HomeController>();
+  final homeController = Get.put(HomeController());
   HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     List<Widget> items = [
-      SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        child: Center(
-          child: Column(
-            children: [
-              Stack(
-                alignment: Alignment(0, 1.25),
-                children: [
-                  Container(
-                    width: Get.width,
-                    height: Get.height * 0.3,
-                    padding: EdgeInsets.symmetric(horizontal: 16),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(8),
-                        topRight: Radius.circular(8),
+      RefreshIndicator(
+        onRefresh: () => homeController.businessController.getBusinesses(),
+        child: SingleChildScrollView(
+          physics:
+              AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          child: Center(
+            child: Column(
+              children: [
+                Stack(
+                  alignment: Alignment(0, 1.25),
+                  children: [
+                    Container(
+                      width: Get.width,
+                      height: Get.height * 0.3,
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      decoration: BoxDecoration(
+                        color: Get.theme.colorScheme.primary,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(8),
+                          topRight: Radius.circular(8),
+                        ),
                       ),
-                    ),
-                    child: Center(
-                      child: Text.rich(
-                        TextSpan(
-                          text: "discover".tr,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineMedium!
-                              .copyWith(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w900,
-                              ),
-                          children: [
-                            TextSpan(
-                              text: "localBusiness".tr,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineMedium!
-                                  .copyWith(
-                                    color: Colors.white,
-                                  ),
+                      child: Center(
+                        child: Text.rich(
+                          TextSpan(
+                            text: "discover".tr,
+                            style: Get.textTheme.headlineMedium!.copyWith(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w900,
                             ),
-                          ],
+                            children: [
+                              TextSpan(
+                                text: "localBusiness".tr,
+                                style: Get.textTheme.headlineMedium!.copyWith(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Positioned(
-                    child: HomePageSearchInput(),
-                  ),
-                ],
-              ),
-              SizedBox(height: Get.height * 0.08),
-              CategoryItemsGrid(),
-              Divider(),
-              SizedBox(height: Get.height * 0.02),
-              GridView(
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 2,
-                  crossAxisSpacing: 0,
-                  childAspectRatio: 0.55,
+                    Positioned(
+                      child: HomePageSearchInput(),
+                    ),
+                  ],
                 ),
-                children: [
-                  BusinessContainer(
-                    imagePath: "assets/eTech_logo.png",
-                    name: "eTech S.C.",
-                    location: "Around 22, Addis Ababa",
-                    shortDescription: "Ethical, Ethiopian, End-to-End",
-                    rating: 4.9,
-                    category: "tech",
-                    onPressed: () async {
-                      homeController.toggleIsLoading();
-                      final res = await LocationService().getCurrentPosition();
-                      homeController.toggleIsLoading();
-                      res.fold((l) {
-                        l.showError();
-                      }, (r) {
-                        homeController.setUserPosition(r);
-                        Get.toNamed("/map");
-                      });
+                SizedBox(height: Get.height * 0.06),
+                Divider(),
+                SizedBox(height: Get.height * 0.02),
+                CategoryItemsGrid(),
+                Divider(),
+                SizedBox(height: Get.height * 0.02),
+                Obx(
+                  () => GridView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 2,
+                      crossAxisSpacing: 0,
+                      childAspectRatio: 0.55,
+                    ),
+                    itemCount: homeController
+                        .businessController.businesses.value.length,
+                    itemBuilder: (context, index) {
+                      final business = homeController
+                          .businessController.businesses.value[index];
+                      return BusinessContainer(
+                        business: business,
+                        onPressed: () async {
+                          homeController.toggleIsLoading();
+                          final res =
+                              await LocationService().getCurrentPosition();
+                          homeController.toggleIsLoading();
+                          res.fold(
+                            (l) {
+                              l.showError();
+                            },
+                            (r) {
+                              homeController.setUserPosition(r);
+                              Get.toNamed("/map", arguments: {
+                                "businessCoords": business.latLng,
+                              });
+                            },
+                          );
+                        },
+                      );
                     },
                   ),
-                  BusinessContainer(
-                    imagePath: "assets/ride_logo.png",
-                    name: "Ride Meter Taxi",
-                    location: "Bole Edna mall, Addis Ababa",
-                    shortDescription: "Your Reliable Ride, Anytime, Anywhere",
-                    rating: 4.9,
-                    category: "meter taxi",
-                    onPressed: () async {
-                      homeController.toggleIsLoading();
-                      final res = await LocationService().getCurrentPosition();
-                      homeController.toggleIsLoading();
-                      res.fold((l) {
-                        l.showError();
-                      }, (r) {
-                        homeController.setUserPosition(r);
-                        Get.toNamed("/map");
-                      });
-                    },
-                  ),
-                  BusinessContainer(
-                    imagePath: "assets/sheraton_addis_logo.png",
-                    name: "Sheraton Addis",
-                    location: "Around 22, Addis Ababa",
-                    shortDescription: "a Luxury Collection Hotel",
-                    rating: 4.9,
-                    category: "hotel and spa",
-                    onPressed: () async {
-                      homeController.toggleIsLoading();
-                      final res = await LocationService().getCurrentPosition();
-                      homeController.toggleIsLoading();
-                      res.fold((l) {
-                        l.showError();
-                      }, (r) {
-                        homeController.setUserPosition(r);
-                        Get.toNamed("/map");
-                      });
-                    },
-                  ),
-                ],
-              ),
-            ],
+                )
+              ],
+            ),
           ),
         ),
       ),
