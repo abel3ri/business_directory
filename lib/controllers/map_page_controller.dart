@@ -1,11 +1,11 @@
 import 'dart:async';
 
+import 'package:business_directory/controllers/home_controller.dart';
 import 'package:business_directory/services/location_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:business_directory/controllers/home_controller.dart';
 
 class MapPageController extends GetxController {
   Rx<Position?> userPosition = Rx<Position?>(null);
@@ -13,9 +13,8 @@ class MapPageController extends GetxController {
   late StreamSubscription<Position> locationUpdateStream;
   Rx<double> currentZoom = 12.0.obs;
   Rx<LatLng?> currentCenter = Rx<LatLng?>(null);
-  LatLng businessCoords = LatLng(9.005647240117275, 38.789157440757506);
+  late LatLng businessCoords;
   Timer? _cameraPositionUpdateFnTimer;
-
   Rx<List<LatLng>?> routePoints = Rx<List<LatLng>?>(null);
 
   MapPageController() {
