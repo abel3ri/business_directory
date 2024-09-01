@@ -26,7 +26,7 @@ class AppError {
             alignment: Alignment.centerLeft,
             child: Text(
               body,
-              style: Get.theme.textTheme.bodyLarge!.copyWith(
+              style: Get.textTheme.bodyLarge!.copyWith(
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),
