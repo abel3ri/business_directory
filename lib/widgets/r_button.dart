@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class RButton extends StatelessWidget {
-  String label;
+  Widget child;
   Function()? onPressed;
   RButton({
     super.key,
-    required this.label,
+    required this.child,
     required this.onPressed,
   });
 
@@ -13,7 +13,7 @@ class RButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FilledButton(
       onPressed: onPressed,
-      child: Text(label),
+      child: child,
       style: ButtonStyle(
         fixedSize: WidgetStatePropertyAll(Size(112, 16)),
       ),

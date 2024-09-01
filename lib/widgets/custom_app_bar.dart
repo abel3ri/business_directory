@@ -24,14 +24,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: actions,
       backgroundColor: Colors.transparent,
       surfaceTintColor: Colors.transparent,
-      titleTextStyle: Theme.of(context).textTheme.bodyLarge,
+      titleTextStyle: Get.textTheme.bodyLarge,
       bottom: PreferredSize(
         preferredSize: Size.fromHeight(8),
         child: Obx(
           () {
             return bottomRenderCondtion?.isTrue ?? false
                 ? LinearProgressIndicator(
-                    color: Theme.of(context).colorScheme.secondary,
+                    color: Get.theme.colorScheme.secondary,
                   )
                 : SizedBox();
           },

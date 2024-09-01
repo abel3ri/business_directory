@@ -32,9 +32,9 @@ class RInputField extends StatelessWidget {
         children: [
           Text(
             label,
-            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+            style: Get.textTheme.bodyMedium!.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
           ),
           SizedBox(height: Get.height * 0.005),
           TextFormField(
@@ -48,20 +48,20 @@ class RInputField extends StatelessWidget {
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
                 borderSide: BorderSide(
-                  color: Theme.of(context).colorScheme.primary,
+                  color: Get.theme.colorScheme.primary,
                 ),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
                 borderSide: BorderSide(
-                  color: Theme.of(context).colorScheme.primary,
+                  color: Get.theme.colorScheme.primary,
                   width: 1.5,
                 ),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
                 borderSide: BorderSide(
-                  color: Theme.of(context).colorScheme.primary,
+                  color: Get.theme.colorScheme.primary,
                   width: 1.5,
                 ),
               ),

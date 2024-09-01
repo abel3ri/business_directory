@@ -17,8 +17,8 @@ class HomePageSearchInput extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
         decoration: BoxDecoration(
           color: Get.isDarkMode
-              ? Theme.of(context).scaffoldBackgroundColor.lighten(10)
-              : Theme.of(context).scaffoldBackgroundColor.darken(10),
+              ? Get.theme.scaffoldBackgroundColor.lighten(10)
+              : Get.theme.scaffoldBackgroundColor.darken(10),
           borderRadius: BorderRadius.circular(8),
         ),
         child: TextField(
@@ -45,8 +45,8 @@ class HomePageSearchInput extends StatelessWidget {
             ),
             filled: true,
             fillColor: Get.isDarkMode
-                ? Theme.of(context).scaffoldBackgroundColor.lighten(20)
-                : Theme.of(context).scaffoldBackgroundColor.lighten(10),
+                ? Get.theme.scaffoldBackgroundColor.lighten(20)
+                : Get.theme.scaffoldBackgroundColor.lighten(10),
           ),
           onChanged: (value) {},
         ),

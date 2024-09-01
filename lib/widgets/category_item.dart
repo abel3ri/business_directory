@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CategoryItem extends StatelessWidget {
   String name;
@@ -25,7 +26,7 @@ class CategoryItem extends StatelessWidget {
               icon,
               color: Colors.white,
             ),
-            backgroundColor: color ?? Theme.of(context).colorScheme.primary,
+            backgroundColor: color ?? Get.theme.colorScheme.primary,
           ),
           SizedBox(height: 4),
           Text(name),
