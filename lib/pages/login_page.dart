@@ -1,3 +1,4 @@
+import 'package:business_directory/controllers/auth_controller.dart';
 import 'package:business_directory/controllers/login_controller.dart';
 import 'package:business_directory/utils/form_validator.dart';
 import 'package:business_directory/widgets/form_footer.dart';
@@ -8,6 +9,7 @@ import 'package:get/get.dart';
 
 class LoginPage extends StatelessWidget {
   final loginController = Get.put(LoginController());
+  final authController = Get.find<AuthController>();
 
   LoginPage({super.key});
 
@@ -35,10 +37,10 @@ class LoginPage extends StatelessWidget {
                 Center(
                   child: Text(
                     "welcomeBack".tr,
-                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                          color: Theme.of(context).colorScheme.primary,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    style: Get.textTheme.headlineSmall!.copyWith(
+                      color: Get.theme.colorScheme.primary,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 SizedBox(height: Get.height * 0.04),
@@ -55,7 +57,7 @@ class LoginPage extends StatelessWidget {
                   controller: loginController.passwordController,
                   label: "password".tr,
                   hintText: "enterPassword".tr,
-                  obscureText: loginController.showPassword.value,
+                  obscureText: loginController.obscureText.value,
                   keyboardType: TextInputType.visiblePassword,
                   textInputAction: TextInputAction.next,
                   suffixIcon: IconButton(
@@ -63,7 +65,7 @@ class LoginPage extends StatelessWidget {
                       loginController.toggleShowPassword();
                     },
                     icon: Icon(
-                      loginController.showPassword.value
+                      loginController.obscureText.value
                           ? Icons.visibility_off
                           : Icons.visibility,
                     ),
@@ -72,10 +74,21 @@ class LoginPage extends StatelessWidget {
                 ),
                 SizedBox(height: Get.height * 0.02),
                 RButton(
-                  label: "login".tr,
-                  onPressed: () {
+                  child: !authController.isLoading.value
+                      ? Text("login".tr)
+                      : CProgressIndicator(),
+                  onPressed: () async {
                     if (loginController.formKey.currentState!.validate()) {
-                      print("success");
+                      final Map<String, dynamic> userData = {
+                        "email": loginController.emailController.text,
+                        "password": loginController.passwordController.text,
+                      };
+                      final res = await authController.loginUser(userData);
+                      res.fold((l) {
+                        l.showError();
+                      }, (r) {
+                        Get.offAllNamed("home");
+                      });
                     }
                   },
                 ),
@@ -90,6 +103,23 @@ class LoginPage extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class CProgressIndicator extends StatelessWidget {
+  const CProgressIndicator({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 16,
+      height: 16,
+      child: CircularProgressIndicator(
+        color: Colors.white,
       ),
     );
   }
