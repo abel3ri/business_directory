@@ -25,17 +25,17 @@ class ImagePickerPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.image, size: MediaQuery.of(context).size.width * 0.25),
+              Icon(Icons.image, size: Get.width * 0.25),
               Text(
                 "Gallery",
-                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+                style: Get.textTheme.bodyLarge!.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
               )
             ],
           ),
         ),
-        SizedBox(width: MediaQuery.of(context).size.width * 0.2),
+        SizedBox(width: Get.width * 0.2),
         GestureDetector(
           onTap: () async {
             final res = await pickImageFromCamera();
@@ -51,13 +51,13 @@ class ImagePickerPage extends StatelessWidget {
             children: [
               Icon(
                 Icons.camera,
-                size: MediaQuery.of(context).size.width * 0.25,
+                size: Get.width * 0.25,
               ),
               Text(
                 "Camera",
-                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+                style: Get.textTheme.bodyLarge!.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
               )
             ],
           ),
