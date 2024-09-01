@@ -1,6 +1,7 @@
 import 'package:business_directory/controllers/auth_controller.dart';
 import 'package:business_directory/controllers/business_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 
@@ -15,11 +16,14 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     authController = Get.find<AuthController>();
-
-    authController.getUserData().then((res) {
-      res.fold((l) {
-        l.showError();
-      }, (_) {});
+    FlutterSecureStorage().read(key: "jwtToken").then((val) {
+      if (val != null) {
+        authController.getUserData().then((res) {
+          res.fold((l) {
+            l.showError();
+          }, (_) {});
+        });
+      }
     });
 
     businessController = Get.put(BusinessController());
