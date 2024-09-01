@@ -14,7 +14,7 @@ class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      backgroundColor: Get.theme.scaffoldBackgroundColor,
       shadowColor: Colors.transparent,
       surfaceTintColor: Colors.transparent,
       width: Get.width * 0.8,
@@ -24,33 +24,10 @@ class AppDrawer extends StatelessWidget {
           children: [
             Text(
               "settings".tr,
-              style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-            ),
-            ListView(
-              shrinkWrap: true,
-              children: [
-                ListTile(
-                  title: Text("darkMode".tr),
-                  trailing: Obx(
-                    () => Transform.scale(
-                      scale: 0.8,
-                      child: Switch(
-                        value: themeController.isDarkMode.value,
-                        onChanged: (value) async {
-                          themeController.isDarkMode.value = value;
-                          Get.changeThemeMode(
-                            value ? ThemeMode.dark : ThemeMode.light,
-                          );
-                          await storage.write("isDarkMode", value);
-                        },
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+              style: Get.textTheme.headlineMedium!.copyWith(
+                fontWeight: FontWeight.bold,
+                color: Get.theme.colorScheme.primary,
+              ),
             ),
           ],
         ),
