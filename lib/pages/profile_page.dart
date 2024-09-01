@@ -1,18 +1,25 @@
+import 'package:business_directory/controllers/auth_controller.dart';
+import 'package:business_directory/widgets/r_button.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
+  final authController = Get.find<AuthController>();
+  ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final user = authController.currentUser.value;
     return Column(
       children: [
         Container(
           padding: EdgeInsets.all(12),
           width: Get.width,
           decoration: BoxDecoration(
-            color: Colors.deepOrange,
+            color: Get.theme.colorScheme.primary,
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(16),
               bottomRight: Radius.circular(16),
@@ -21,37 +28,67 @@ class ProfilePage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              CircleAvatar(
-                radius: 48,
-                backgroundColor: Colors.white,
-                child: Icon(
-                  Icons.person,
-                  size: 64,
+              if (user != null) ...[
+                CircleAvatar(
+                  radius: 48,
+                  backgroundColor: Colors.white,
+                  backgroundImage: user.profileImageUrl != null
+                      ? NetworkImage(user.profileImageUrl!)
+                      : NetworkImage(
+                          "https://eu.ui-avatars.com/api/?name=${user.firstName}+${user.lastName}&size=250",
+                        ),
                 ),
-              ),
-              SizedBox(height: Get.height * 0.01),
-              Text(
-                "Full Name",
-                style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                SizedBox(height: Get.height * 0.01),
+                Text(
+                  '${user.firstName.capitalize} ${user.lastName.capitalize}',
+                  style: Get.textTheme.titleLarge!.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+                SizedBox(height: Get.height * 0.02),
+                ProfileDetailRow(
+                  label: "email".tr,
+                  data: "${user.email}".toLowerCase(),
+                ),
+                SizedBox(height: Get.height * 0.02),
+                ProfileDetailRow(
+                  label: "username".tr,
+                  data: '@${user.username}',
+                ),
+                SizedBox(height: Get.height * 0.02),
+                ProfileDetailRow(
+                  label: "dateJoined".tr,
+                  data: DateFormat.yMMMd("en-us").format(user.createdAt),
+                ),
+              ],
+              if (authController.currentUser.value == null) ...[
+                Text(
+                  "Login or Sign up To View Your Profile",
+                  style: Get.textTheme.bodyLarge!.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    RButton(
+                      child: Text("signup".tr),
+                      onPressed: () {
+                        Get.toNamed("signup");
+                      },
                     ),
-              ),
-              SizedBox(height: Get.height * 0.02),
-              ProfileDetailRow(
-                label: "email".tr,
-                data: "test@test.com",
-              ),
-              SizedBox(height: Get.height * 0.02),
-              ProfileDetailRow(
-                label: "phone".tr,
-                data: "+251900000000",
-              ),
-              SizedBox(height: Get.height * 0.02),
-              ProfileDetailRow(
-                label: "dateJoined".tr,
-                data: "Aug 16, 2024",
-              ),
+                    SizedBox(width: 12),
+                    RButton(
+                      child: Text("login".tr),
+                      onPressed: () {
+                        Get.toNamed("login");
+                      },
+                    ),
+                  ],
+                ),
+              ]
             ],
           ),
         ),
@@ -94,7 +131,23 @@ class ProfilePage extends StatelessWidget {
             ProfilePageTile(
               title: "privacyAndPolicy".tr,
               icon: Icons.shield,
-              onPressed: () {},
+              onPressed: () async {
+                try {
+                  final res =
+                      await FlutterSecureStorage().read(key: "jwtToken");
+                  Dio dio = Dio(BaseOptions(
+                    headers: {
+                      "Authorization": 'Bearer ${res}',
+                    },
+                  ));
+
+                  final response = await dio
+                      .get("http://10.0.2.2:8000/api/v1/users/profile");
+                  print(response.data);
+                } on DioException catch (e) {
+                  print(e.response!.data);
+                }
+              },
               trailing: Icon(Icons.arrow_forward_ios_rounded),
             ),
             ProfilePageTile(
@@ -103,6 +156,25 @@ class ProfilePage extends StatelessWidget {
               onPressed: () {},
               trailing: Icon(Icons.arrow_forward_ios_rounded),
             ),
+            if (user != null)
+              ListTile(
+                leading: Icon(Icons.logout),
+                title: Text("Logout"),
+                trailing: Icon(Icons.arrow_forward_ios_rounded),
+                iconColor: Get.theme.colorScheme.error,
+                textColor: Get.theme.colorScheme.error,
+                titleTextStyle: Get.textTheme.bodyLarge!.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+                onTap: () async {
+                  final res = await authController.logout();
+                  res.fold((l) {
+                    l.showError();
+                  }, (r) {
+                    Get.offAllNamed("getStarted");
+                  });
+                },
+              ),
           ],
         ),
       ],
@@ -127,17 +199,17 @@ class ProfileDetailRow extends StatelessWidget {
       children: [
         Text(
           label,
-          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
+          style: Get.textTheme.bodyLarge!.copyWith(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         Text(
           data,
-          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
+          style: Get.textTheme.bodyLarge!.copyWith(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ],
     );
@@ -165,7 +237,7 @@ class ProfilePageTile extends StatelessWidget {
       onTap: onPressed,
       title: Text(title),
       trailing: trailing,
-      iconColor: Theme.of(context).colorScheme.primary,
+      iconColor: Get.theme.colorScheme.primary,
     );
   }
 }
