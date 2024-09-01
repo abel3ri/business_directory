@@ -6,6 +6,7 @@ class User {
     required this.firstName,
     required this.lastName,
     required this.createdAt,
+    required this.role,
     this.profileImageUrl = null,
   });
 
@@ -14,6 +15,7 @@ class User {
   final String username;
   final String firstName;
   final String lastName;
+  final String role;
   final DateTime createdAt;
   String? profileImageUrl;
 
@@ -24,6 +26,7 @@ class User {
       username: json['username'],
       firstName: json['firstName'],
       lastName: json['lastName'],
+      role: json['role'],
       createdAt: DateTime.parse(json['createdAt']),
       profileImageUrl: json['profileImage'],
     );
