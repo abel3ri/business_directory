@@ -1,6 +1,9 @@
 import 'package:business_directory/controllers/business_details_controller.dart';
+import 'package:business_directory/controllers/home_controller.dart';
 import 'package:business_directory/models/business.dart';
+import 'package:business_directory/services/location_service.dart';
 import 'package:business_directory/widgets/business_profile_card.dart';
+import 'package:business_directory/widgets/custom_app_bar.dart';
 import 'package:business_directory/widgets/header_text.dart';
 import 'package:business_directory/widgets/image_slider_btn.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -20,7 +23,7 @@ class BusinessDetailsPage extends StatelessWidget {
     final business = Get.arguments['business'] as Business;
 
     return Scaffold(
-      appBar: AppBar(
+      appBar: CustomAppBar(
         leading: IconButton(
           onPressed: () {
             Get.back();
@@ -33,7 +36,34 @@ class BusinessDetailsPage extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-        centerTitle: true,
+        bottomRenderCondtion: businessDetailsController.isLoading,
+        centerTitle: false,
+        actions: [
+          IconButton(
+            onPressed: () async {
+              final homeController = Get.find<HomeController>();
+              businessDetailsController.toggleIsLoading();
+              final res = await LocationService().getCurrentPosition();
+              businessDetailsController.toggleIsLoading();
+              res.fold(
+                (l) {
+                  l.showError();
+                },
+                (r) {
+                  homeController.setUserPosition(r);
+                  Get.toNamed("/map", arguments: {
+                    "businessCoords": business.latLng,
+                    "name": business.name,
+                  });
+                },
+              );
+            },
+            icon: Icon(
+              Icons.directions,
+              color: Get.theme.colorScheme.primary,
+            ),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
@@ -109,9 +139,17 @@ class BusinessDetailsPage extends StatelessWidget {
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              child: Image.network(
-                                business.images![index],
+                              child: FadeInImage.assetNetwork(
+                                placeholder: "assets/image.png",
+                                image: business.images![index],
                                 fit: BoxFit.cover,
+                                imageErrorBuilder:
+                                    (context, error, stackTrace) {
+                                  return Image.asset(
+                                    "assets/image.png",
+                                    fit: BoxFit.cover,
+                                  );
+                                },
                               ),
                             ),
                           );
