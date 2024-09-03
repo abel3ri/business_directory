@@ -90,7 +90,10 @@ class LocationService {
       }).toList();
       return right(routePoints);
     } on DioException catch (e) {
-      print(e.message);
+      if (e.message ==
+          "The connection errored: Failed host lookup: 'router.project-osrm.org' This indicates an error which most likely cannot be solved by the library.") {
+        return left(AppError(body: "Please check your internet connection."));
+      }
       return left(AppError(body: e.message!));
     } catch (e) {
       print(e.toString());
