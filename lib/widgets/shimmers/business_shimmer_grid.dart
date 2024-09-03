@@ -11,7 +11,7 @@ class BusinessShimmerGrid extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 8),
       physics: BouncingScrollPhysics(),
       shrinkWrap: true,
-      itemCount: 10,
+      itemCount: 4,
       crossAxisSpacing: 8,
       mainAxisSpacing: 8,
       gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(
