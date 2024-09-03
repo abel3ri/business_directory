@@ -8,19 +8,21 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.actions,
     this.leading,
     this.bottomRenderCondtion,
+    this.centerTitle = true,
   });
 
   final Widget? title;
   final List<Widget>? actions;
   final Widget? leading;
   final Rx<bool>? bottomRenderCondtion;
+  final bool centerTitle;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       leading: leading,
       title: title,
-      centerTitle: true,
+      centerTitle: centerTitle,
       actions: actions,
       backgroundColor: Colors.transparent,
       surfaceTintColor: Colors.transparent,

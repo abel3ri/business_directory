@@ -7,11 +7,11 @@ class BusinessContainer extends StatelessWidget {
   const BusinessContainer({
     super.key,
     required this.business,
-    required this.onPressed,
+    required this.onShowDirectionTap,
   });
 
   final Business business;
-  final Function() onPressed;
+  final Function() onShowDirectionTap;
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +42,16 @@ class BusinessContainer extends StatelessWidget {
                 width: 64,
                 child: Hero(
                   tag: business.name,
-                  child: Image.network(
-                    business.logo!,
+                  child: FadeInImage.assetNetwork(
+                    placeholder: "assets/image.png",
+                    image: business.logo!,
                     fit: BoxFit.cover,
+                    imageErrorBuilder: (context, error, stackTrace) {
+                      return Image.asset(
+                        "assets/image.png",
+                        fit: BoxFit.cover,
+                      );
+                    },
                   ),
                 ),
               ),
@@ -68,23 +75,28 @@ class BusinessContainer extends StatelessWidget {
                 ),
               ),
               Divider(),
-              Chip(
-                shape: StadiumBorder(),
-                backgroundColor: Colors.transparent,
-                padding: EdgeInsets.all(0),
-                side: BorderSide.none,
-                label: Text(
-                  "tech",
-                  overflow: TextOverflow.ellipsis,
-                  style: Get.textTheme.bodySmall!.copyWith(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 8,
-                  ),
-                ),
+              Wrap(
+                children: business.categories
+                    .map((category) => Chip(
+                          shape: StadiumBorder(),
+                          backgroundColor: Colors.transparent,
+                          padding: EdgeInsets.all(0),
+                          side: BorderSide.none,
+                          label: Text(
+                            category.name.toUpperCase(),
+                            overflow: TextOverflow.ellipsis,
+                            style: Get.textTheme.bodySmall!.copyWith(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 8,
+                            ),
+                          ),
+                        ))
+                    .toList(),
               ),
-
+              Divider(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
                     "${business.averageRating ?? "No ratings"}",
@@ -100,7 +112,7 @@ class BusinessContainer extends StatelessWidget {
                 ],
               ),
               Divider(),
-              Spacer(),
+              // // Spacer(),
               Text(
                 '${business.address}',
                 overflow: TextOverflow.ellipsis,
@@ -113,7 +125,7 @@ class BusinessContainer extends StatelessWidget {
                   "showDirection".tr,
                   style: Get.textTheme.bodySmall,
                 ),
-                onPressed: onPressed,
+                onPressed: onShowDirectionTap,
                 iconAlignment: IconAlignment.end,
                 icon: Icon(Icons.directions),
               )
