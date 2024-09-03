@@ -14,6 +14,7 @@ class MapPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     mapPageController.businessCoords = Get.arguments['businessCoords'];
+    final name = Get.arguments['name'];
     return Scaffold(
       appBar: CustomAppBar(
         leading: IconButton(
@@ -22,7 +23,12 @@ class MapPage extends StatelessWidget {
           },
           icon: Icon(Icons.arrow_back_ios_new),
         ),
-        title: Text("Map Page"),
+        title: Text(
+          "${name} - Direction",
+          style: Get.textTheme.bodyMedium!.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         bottomRenderCondtion: mapPageController.isLoading,
       ),
       body: Center(
