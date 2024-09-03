@@ -44,6 +44,9 @@ class HomeController extends GetxController {
   }
 
   void onPageChanged(int i) {
+    if (i != 1 && Get.focusScope!.hasFocus) {
+      Get.focusScope!.unfocus();
+    }
     index.value = i;
   }
 
