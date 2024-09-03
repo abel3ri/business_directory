@@ -36,6 +36,7 @@ class SearchPage extends StatelessWidget {
                     final business =
                         searchController.searchResults.value[index];
                     return BusinessContainer(
+                      tag: "s${business.name}",
                       business: business,
                       onShowDirectionTap: () async {
                         homeController.toggleIsLoading();
@@ -51,6 +52,7 @@ class SearchPage extends StatelessWidget {
                             Get.toNamed("/map", arguments: {
                               "businessCoords": business.latLng,
                               "name": business.name,
+                              "tag": "s${business.name}",
                             });
                           },
                         );

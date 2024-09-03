@@ -71,6 +71,7 @@ class BusinessDetailsPage extends StatelessWidget {
         child: Column(
           children: [
             BusinessProfileCard(
+              tag: Get.arguments['tag'],
               logoUrl: business.logo,
               name: business.name,
               description: business.description ?? "",
