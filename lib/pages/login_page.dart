@@ -87,7 +87,7 @@ class LoginPage extends StatelessWidget {
                       res.fold((l) {
                         l.showError();
                       }, (r) {
-                        Get.offAllNamed("home");
+                        Get.offAllNamed("home-wrapper");
                       });
                     }
                   },

@@ -1,5 +1,5 @@
 import 'package:business_directory/pages/get_started_page.dart';
-import 'package:business_directory/pages/home_page.dart';
+import 'package:business_directory/pages/home_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
@@ -20,7 +20,7 @@ class SplashPage extends StatelessWidget {
           if (snapshot.hasError || snapshot.data == null) {
             return GetStartedPage();
           }
-          return HomePage();
+          return HomeWrapper();
         },
       ),
     );
