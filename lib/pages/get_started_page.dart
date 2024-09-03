@@ -14,7 +14,7 @@ class GetStartedPage extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () {
-              Get.toNamed("home");
+              Get.offAllNamed("home-wrapper");
             },
             child: Text(
               "skip".tr,

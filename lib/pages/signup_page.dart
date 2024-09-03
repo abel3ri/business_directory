@@ -182,7 +182,7 @@ class SignupPage extends StatelessWidget {
                         res.fold((l) {
                           l.showError();
                         }, (r) {
-                          Get.offAllNamed("home-wrapper");
+                          Get.offNamed("home-wrapper");
                         });
                       }
                     },
