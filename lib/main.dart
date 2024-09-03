@@ -37,25 +37,21 @@ void main(List<String> args) async {
       defaultTransition: Transition.cupertino,
       initialRoute: "/splash",
       getPages: [
-        GetPage(name: "/splash", page: () => SplashPage()),
+        GetPage(
+          name: "/splash",
+          page: () => SplashPage(),
+        ),
         GetPage(name: "/getStarted", page: () => GetStartedPage()),
         GetPage(
           name: "/home-wrapper",
           page: () => HomeWrapper(),
-          transition: Transition.downToUp,
         ),
         GetPage(name: "/login", page: () => LoginPage()),
         GetPage(name: "/signup", page: () => SignupPage()),
         GetPage(name: "/map", page: () => MapPage()),
         GetPage(
-          name: "/business-details-page",
-          page: () => BusinessDetailsPage(),
-        ),
-        GetPage(
-          name: "/search",
-          page: () => SearchPage(),
-          transition: Transition.downToUp,
-        ),
+            name: "/business-details-page", page: () => BusinessDetailsPage()),
+        GetPage(name: "/search", page: () => SearchPage()),
       ],
       // themeMode: ,
     ),
