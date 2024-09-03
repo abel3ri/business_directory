@@ -7,12 +7,14 @@ class BusinessProfileCard extends StatelessWidget {
   final String name;
   final bool isVerified;
   final String description;
+  final String tag;
 
   BusinessProfileCard({
     required this.logoUrl,
     required this.name,
     required this.description,
     required this.isVerified,
+    required this.tag,
   });
 
   @override
@@ -34,13 +36,19 @@ class BusinessProfileCard extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
                   child: Hero(
-                    tag: name,
-                    child: Image.network(
-                      logoUrl ??
-                          "https://eu.ui-avatars.com/api/?name=${name}&size=250",
-                      height: 60,
+                    tag: tag,
+                    child: FadeInImage.assetNetwork(
+                      placeholder: "assets/image.png",
+                      image: logoUrl!,
                       width: 60,
+                      height: 60,
                       fit: BoxFit.cover,
+                      imageErrorBuilder: (context, error, stackTrace) {
+                        return Image.asset(
+                          "assets/image.png",
+                          fit: BoxFit.cover,
+                        );
+                      },
                     ),
                   ),
                 ),
