@@ -2,6 +2,7 @@ import 'package:business_directory/models/business.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:business_directory/controllers/home_controller.dart'; // Import HomeController
 
 class BusinessContainer extends StatelessWidget {
   const BusinessContainer({
@@ -17,6 +18,8 @@ class BusinessContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final homeController = Get.find<HomeController>(); // Get the HomeController
+
     return GestureDetector(
       onTap: () {
         Get.toNamed(
@@ -115,14 +118,25 @@ class BusinessContainer extends StatelessWidget {
                 ],
               ),
               Divider(),
-              // // Spacer(),
               Text(
                 '${business.address}',
                 overflow: TextOverflow.ellipsis,
                 style: Get.textTheme.bodySmall,
                 textAlign: TextAlign.center,
               ),
-              // Spacer(),
+              // Favorite icon
+              IconButton(
+                icon: Icon(
+                  homeController.isFavorite(business)
+                      ? Icons.favorite
+                      : Icons.favorite_border,
+                  color:
+                      homeController.isFavorite(business) ? Colors.red : null,
+                ),
+                onPressed: () {
+                  homeController.toggleFavorite(business);
+                },
+              ),
               TextButton.icon(
                 label: Text(
                   "showDirection".tr,

@@ -2,11 +2,13 @@ import 'package:business_directory/controllers/home_controller.dart';
 import 'package:business_directory/pages/home_page.dart';
 import 'package:business_directory/pages/profile_page.dart';
 import 'package:business_directory/pages/search_page.dart';
+import 'package:business_directory/pages/favorites_page.dart'; // Import your FavoritesPage
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HomeWrapper extends StatelessWidget {
   final homeController = Get.put(HomeController());
+
   HomeWrapper({super.key});
 
   @override
@@ -14,9 +16,10 @@ class HomeWrapper extends StatelessWidget {
     List<Widget> _pages = [
       HomePage(),
       SearchPage(),
-      Center(child: Text("Favorites")),
+      FavoritesPage(), // Use the actual FavoritesPage
       ProfilePage(),
     ];
+
     return Scaffold(
       bottomNavigationBar: Obx(
         () => BottomNavigationBar(
@@ -35,7 +38,7 @@ class HomeWrapper extends StatelessWidget {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person),
-              label: "Proifle",
+              label: "Profile", // Fixed typo here
             ),
           ],
           currentIndex: homeController.index.value,

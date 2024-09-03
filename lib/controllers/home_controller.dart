@@ -4,9 +4,11 @@ import 'package:business_directory/controllers/category_controller.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:business_directory/models/business.dart'; // Adjust import based on your model
 
 class HomeController extends GetxController {
   Rx<int> index = 0.obs;
+  var favorites = <Business>[].obs; // List to hold favorite businesses
   Rx<bool> isLoading = false.obs;
   Rx<Position?> userPosition = Rx<Position?>(null);
   late AuthController authController;
@@ -56,5 +58,18 @@ class HomeController extends GetxController {
 
   void setUserPosition(Position position) {
     userPosition.value = position;
+  }
+
+  // New methods for managing favorites
+  void toggleFavorite(Business business) {
+    if (favorites.contains(business)) {
+      favorites.remove(business);
+    } else {
+      favorites.add(business);
+    }
+  }
+
+  bool isFavorite(Business business) {
+    return favorites.contains(business);
   }
 }
