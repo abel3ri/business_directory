@@ -8,10 +8,12 @@ class BusinessContainer extends StatelessWidget {
     super.key,
     required this.business,
     required this.onShowDirectionTap,
+    required this.tag,
   });
 
   final Business business;
   final Function() onShowDirectionTap;
+  final String tag;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +23,7 @@ class BusinessContainer extends StatelessWidget {
           "business-details-page",
           arguments: {
             "business": business,
+            "tag": tag,
           },
         );
       },
@@ -41,7 +44,7 @@ class BusinessContainer extends StatelessWidget {
                 height: 64,
                 width: 64,
                 child: Hero(
-                  tag: business.name,
+                  tag: tag,
                   child: FadeInImage.assetNetwork(
                     placeholder: "assets/image.png",
                     image: business.logo!,
