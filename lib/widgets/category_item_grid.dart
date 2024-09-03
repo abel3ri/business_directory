@@ -1,9 +1,13 @@
+import 'package:business_directory/controllers/category_controller.dart';
+import 'package:business_directory/utils/utils.dart';
 import 'package:business_directory/widgets/category_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 
 class CategoryItemsGrid extends StatelessWidget {
-  const CategoryItemsGrid({
+  final categoryContoller = Get.find<CategoryController>();
+  CategoryItemsGrid({
     super.key,
   });
 
@@ -11,61 +15,26 @@ class CategoryItemsGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 12),
-      child: GridView(
-        physics: NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 4,
+      child: Obx(
+        () => MasonryGridView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: categoryContoller.categories.value.length,
           crossAxisSpacing: 4,
+          mainAxisSpacing: 4,
+          gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 4,
+          ),
+          itemBuilder: (context, index) {
+            final category = categoryContoller.categories.value[index];
+            return CategoryItem(
+              onTap: () {},
+              name: category.name,
+              icon: Icons.business,
+              color: getCategoryItemColor(index),
+            );
+          },
         ),
-        children: [
-          CategoryItem(
-            name: "restaurant".tr,
-            icon: Icons.restaurant,
-            color: Colors.red,
-            onTap: () {},
-          ),
-          CategoryItem(
-            name: "realEstate".tr,
-            icon: Icons.home,
-            color: Colors.amber,
-            onTap: () {},
-          ),
-          CategoryItem(
-            name: "tech".tr,
-            icon: Icons.developer_mode,
-            color: Colors.blue,
-            onTap: () {},
-          ),
-          CategoryItem(
-            name: "shopping".tr,
-            icon: Icons.shopping_bag,
-            onTap: () {},
-          ),
-          CategoryItem(
-            name: "hospital".tr,
-            icon: Icons.local_hospital,
-            color: Colors.green,
-            onTap: () {},
-          ),
-          CategoryItem(
-            name: "pharmacy".tr,
-            icon: Icons.medication_liquid_rounded,
-            color: Colors.lightGreen,
-            onTap: () {},
-          ),
-          CategoryItem(
-            name: "Shopping".tr,
-            icon: Icons.shopping_bag,
-            color: Colors.purple,
-            onTap: () {},
-          ),
-          CategoryItem(
-            name: "more".tr,
-            icon: Icons.more_vert_outlined,
-            onTap: () {},
-          ),
-        ],
       ),
     );
   }
