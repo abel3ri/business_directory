@@ -1,3 +1,4 @@
+import 'package:business_directory/controllers/home_controller.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,7 +12,7 @@ class HomePageSearchPlaceHolder extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.toNamed("search");
+        Get.find<HomeController>().index.value = 1;
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
