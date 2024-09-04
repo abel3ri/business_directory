@@ -6,6 +6,7 @@ import 'package:business_directory/widgets/category_item_grid.dart';
 import 'package:business_directory/widgets/custom_app_bar.dart';
 import 'package:business_directory/widgets/homepage_search_placeholder.dart';
 import 'package:business_directory/widgets/shimmers/business_shimmer_grid.dart';
+import 'package:business_directory/widgets/shimmers/category_shimmer_grid.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
@@ -16,7 +17,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("rebuilt");
     return Scaffold(
       resizeToAvoidBottomInset: false,
       drawer: AppDrawer(),
@@ -60,7 +60,7 @@ class HomePage extends StatelessWidget {
         title: Text("businessDirectory".tr),
       ),
       body: RefreshIndicator(
-        onRefresh: () => homeController.businessController.getBusinesses(),
+        onRefresh: () => homeController.fetchData(),
         child: SingleChildScrollView(
           physics:
               AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
@@ -108,7 +108,11 @@ class HomePage extends StatelessWidget {
                 SizedBox(height: Get.height * 0.06),
                 Divider(),
                 SizedBox(height: Get.height * 0.02),
-                CategoryItemsGrid(),
+                Obx(() {
+                  return homeController.categoryController.isLoading.value
+                      ? CategoryShimmerGrid()
+                      : CategoryItemsGrid();
+                }),
                 Divider(),
                 SizedBox(height: Get.height * 0.02),
                 Obx(
