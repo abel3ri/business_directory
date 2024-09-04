@@ -37,7 +37,7 @@ class BusinessDetailsPage extends StatelessWidget {
           ),
         ),
         bottomRenderCondtion: businessDetailsController.isLoading,
-        centerTitle: false,
+        centerTitle: true,
         actions: [
           IconButton(
             onPressed: () async {
@@ -59,7 +59,8 @@ class BusinessDetailsPage extends StatelessWidget {
               );
             },
             icon: Icon(
-              Icons.directions,
+              Icons.explore_rounded,
+              size: 28,
               color: Get.theme.colorScheme.primary,
             ),
           ),

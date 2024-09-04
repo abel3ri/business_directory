@@ -2,6 +2,7 @@ import 'package:business_directory/controllers/home_controller.dart';
 import 'package:business_directory/controllers/search_controller.dart';
 import 'package:business_directory/services/location_service.dart';
 import 'package:business_directory/widgets/business_container.dart';
+import 'package:business_directory/widgets/custom_app_bar.dart';
 import 'package:business_directory/widgets/home_page_search_input.dart';
 import 'package:business_directory/widgets/shimmers/business_shimmer_grid.dart';
 import 'package:flutter/material.dart' hide SearchController;
@@ -17,8 +18,9 @@ class SearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: CustomAppBar(
         title: HomePageSearchInput(),
+        bottomRenderCondtion: homeController.isLoading,
       ),
       body: Obx(
         () => Padding(
@@ -48,7 +50,9 @@ class SearchPage extends StatelessWidget {
                             l.showError();
                           },
                           (r) {
+                            homeController.toggleIsLoading();
                             homeController.setUserPosition(r);
+                            homeController.toggleIsLoading();
                             Get.toNamed("/map", arguments: {
                               "businessCoords": business.latLng,
                               "name": business.name,
