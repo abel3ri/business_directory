@@ -1,4 +1,4 @@
-# business_directory
+# business_dir
 
 A new Flutter project.
 
